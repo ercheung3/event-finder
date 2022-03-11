@@ -8,8 +8,8 @@ The out of the world app will let you find fun and upcoming events near your are
 
 ## Task List
 
--Eric
--Angela
--Brevan
--Pierre
+- Eric
+- Angela
+- Brevan
+- Pierre
 
