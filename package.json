@@ -4,6 +4,7 @@
   "description": "The out of the world app will let you find fun and upcoming events near your area.",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
