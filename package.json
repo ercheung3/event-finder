@@ -4,6 +4,7 @@
   "description": "The out of the world app will let you find fun and upcoming events near your area.",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,9 +16,6 @@
   "bugs": {
     "url": "https://github.com/ercheung3/event-finder/issues"
   },
-  "scripts": {
-    "start": "node app.js"
-  }
   "homepage": "https://github.com/ercheung3/event-finder#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
