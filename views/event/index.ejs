@@ -17,10 +17,8 @@
             <ul class="events">
                 <% event.forEach((event)=>{ %>
                     <% if(true){ %>
-                        <li><a href="/events/<%=event._id%>">
-                                <%= event.name %>
-                            </a>
-                            <%=event.description%>
+                        <li>
+                            <a href="/events/<%=event._id%>"><%= event.name %></a>: <%=event.description%>
                         </li>
                         <% } %>
                             <% }) %>
