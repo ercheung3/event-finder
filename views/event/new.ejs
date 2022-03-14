@@ -10,8 +10,14 @@
 
 <body>
     <h1>New event</h1>
-    <form action="/events" method="post">
-        <!--Match the model for events-->
+    <!--Match the model for events-->
+    <form action="/events " method="POST">
+        name: <input type="text" name="name">
+        description: <input type="text" name="description">
+        image URL: <input type="text" name="image">
+        date: <input type="text" name="date">
+        organization: <input type="text" name="organization">
+        <button type="submit">Submit</button>
     </form>
 </body>
 

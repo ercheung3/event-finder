@@ -9,17 +9,19 @@
 </head>
 
 <body>
-    <h1>You have visited <%= visits %> times</h1>
-    <% if(events.length===0) {%>
+    <h1>Welcome to Event Palooza!</h1>
+    <% if(event.length===0) {%>
         <h2>There are no events yet!</h2>
         <a href="/events/new">Create one now!</a>
         <% } else { %>
             <ul class="events">
-                <% events.forEach((event)=>{ %>
-                    <% if(event.user==userId){ %>
+                <% event.forEach((event)=>{ %>
+                    <% if(true){ %>
                         <li><a href="/events/<%=event._id%>">
                                 <%= event.name %>
-                            </a> is <%=event.age%> years old</li>
+                            </a>
+                            <%=event.description%>
+                        </li>
                         <% } %>
                             <% }) %>
             </ul>

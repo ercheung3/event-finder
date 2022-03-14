@@ -1,20 +1,16 @@
-const event = require("../models/event");
+const Event = require("../models/event");
 const express = require("express");
 const router = express.Router();
+
 // INDEX: GET
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
-  if (!req.session.visits) {
-    req.session.visits = 1;
-  } else {
-    req.session.visits += 1;
-  }
-  const events = await event.find();
+  const events = await Event.find();
   // Demo that res.locals is the same as the object passed to render
-  res.locals.visits = req.session.visits;
-  res.locals.events = events;
-  res.render("event/index.ejs");
+  res.render("event/index.ejs", {
+    event: events,
+  });
 });
 // NEW: GET
 // /events/new
@@ -27,7 +23,8 @@ router.get("/new", (req, res) => {
 // /events/:id
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
-  const event = await event.findById(req.params.id).populate("user");
+  const event = await Event.findById(req.params.id).populate("user");
+  console.log("SHOW EVENT: " + event);
   res.render("event/show.ejs", {
     event: event,
   });
@@ -38,7 +35,7 @@ router.get("/:id", async (req, res) => {
 // Creates an actual event, then...?
 router.post("/", async (req, res) => {
   req.body.user = req.session.userId;
-  const newevent = await event.create(req.body);
+  const newevent = await Event.create(req.body);
   console.log(newevent);
   res.redirect("/events");
 });
@@ -48,7 +45,7 @@ router.post("/", async (req, res) => {
 // SHOW THE FORM TO EDIT A event
 router.get("/:id/edit", async (req, res) => {
   try {
-    const event = await event.findById(req.params.id);
+    const event = await Event.findById(req.params.id);
     res.render("event/edit.ejs", {
       event: event,
     });
@@ -62,7 +59,7 @@ router.get("/:id/edit", async (req, res) => {
 // UPDATE THE event WITH THE SPECIFIC ID
 router.put("/:id", async (req, res) => {
   try {
-    await event.findByIdAndUpdate(req.params.id, req.body);
+    await Event.findByIdAndUpdate(req.params.id, req.body);
     res.redirect(`/events/${req.params.id}`);
   } catch (err) {
     res.sendStatus(500);
@@ -73,7 +70,7 @@ router.put("/:id", async (req, res) => {
 // DELETE THE event WITH THE SPECIFIC ID
 router.delete("/:id", async (req, res) => {
   try {
-    await event.findByIdAndDelete(req.params.id);
+    await Event.findByIdAndDelete(req.params.id);
     res.redirect("/events");
   } catch (err) {
     res.sendStatus(500);

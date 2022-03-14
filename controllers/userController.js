@@ -2,11 +2,12 @@ const User = require("../models/user");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+
 // INDEX: GET
 // /users
 // Gives a page displaying all the users
 router.get("/login", (req, res) => {
-  res.render("login.ejs");
+  res.render("user/login.ejs");
 });
 router.post("/login", async (req, res) => {
   try {
@@ -37,12 +38,14 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
+
 router.get("/", async (req, res) => {
   const user = await User.find({ username: req.query.username });
   res.render("user/index.ejs", {
     user: user,
   });
 });
+
 // NEW: GET
 // /users/new
 // Shows a form to create a new user
@@ -65,7 +68,6 @@ router.get("/:id", async (req, res) => {
 // Creates an actual user, then...?
 router.post("/", async (req, res) => {
   // req.body.password needs to be HASHED
-  console.log(req.body);
   const hashedPassword = bcrypt.hashSync(
     req.body.password,
     bcrypt.genSaltSync(10)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,13 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
     <% if(isLoggedIn){ %>
         <h1>Welcome back <%= username %>!</h1>
-    <% } else { %>
-        <a href="/users/login">Please log in</a>
-    <% } %>
+        <% } else { %>
+            <a href="/users/login">Please log in</a>
+            <% } %>
 </body>
+
 </html>
