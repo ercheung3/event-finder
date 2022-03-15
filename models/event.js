@@ -52,8 +52,11 @@ const eventSchema = new Schema(
         message: "{VALUE} is not supported",
       },
     },
+    likes: {
+      type:Array,
+      default:[]
+    }
   },
-
   { timestamps: true }
 );
 // stretch goal - location nearest zip
