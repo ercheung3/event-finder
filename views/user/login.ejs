@@ -5,20 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/event-finder/public/css/style.css">
     <title>Document</title>
 </head>
 
 <body>
-    <form action="/users/login" method="POST">
+  
+<main>
+<div class="form">
+    <div class="login-heading">
+    <h2></h2>
+    </div>
+    <form action="/users/login" class="actual-form">
+        <div class="login-inputs">
         <label for="username">Username:</label>
         <input type="text" name="username" required>
-        <br><br><br>
         <label for="password">Password:</label>
         <input type="password" name="password">
-        <br><br><br>
-        <button type="submit">Login</button>
-        <button><a href="/users/new">Sign Up</a></button>
+        </div>
+        <div class="bottom-register">
+            <button class="login-btn" type="submit">Login</button>
+            <p>Don't have an account? <span><a href="/users/new">Register</a></span></p>
+        </div>
     </form>
-</body>
+</div>
+</main>
 
 </html>
