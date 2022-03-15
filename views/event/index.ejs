@@ -9,6 +9,7 @@
     <header>
         <%- include('../partials/header') %>
     </header>
+
     <h1>Welcome to Event Palooza!</h1>
     <% if(event.length===0) {%>
         <h2>There are no events yet!</h2>
@@ -64,6 +65,10 @@
                             <% }) %>
             </div>
             <% } %>
+
+            <footer>
+                <%- include ('../partials/footer') %>
+            </footer>
 </body>
 
 </html>
