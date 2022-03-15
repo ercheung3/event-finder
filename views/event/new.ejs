@@ -27,8 +27,17 @@
         <label for="organization">Organization:</label>
         <input type="text" name="organization">
         <br>
-        <label for="tag">Tag:</label>
-        <input type="text" name="tag">
+        <label for="tag">Event Type:</label>
+        <div class="dropdown">
+            <select name="tag" id="dropdown-event-tag">
+                <option value="">--Select Event Type--</option>
+                <option value="Music">Music</option>
+                <option value="Arts & Culture">Arts & Culture</option>
+                <option value="Community Events">Community Events</option>
+                <option value="Outdoor Recreation">Outdoor Recreation</option>
+                <option value="Health/Fitness">Health/Fitness</option>
+            </select>
+        </div>
         <br>
         <label for="location">Location:</label>
         location: <input type="text" name="location">
