@@ -8,6 +8,8 @@
 }
 body {
     background-color: #f3efef;
+    min-height: 100vh;
+    position: relative;
 }
 /* ============================== PARTIALS ============================== */
 header {
@@ -114,4 +116,21 @@ main {
     display: flex;
     flex-direction: column;
     padding: 10px;
+}
+.register-link {
+    color: blue;
+}
+/* =========================== FOOTER =========================== */
+footer {
+    background-color: #FAF9F6;
+    padding: 2.5rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 9rem;
+}
+.footer-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
