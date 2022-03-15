@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Event = require("../models/event");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -58,8 +59,10 @@ router.get("/new", (req, res) => {
 // Shows a page displaying one user
 router.get("/:id", async (req, res) => {
   const user = await User.findById(req.params.id);
+  const events = await Event.find();
   res.render("user/show.ejs", {
     user: user,
+    event: events
   });
 });
 
