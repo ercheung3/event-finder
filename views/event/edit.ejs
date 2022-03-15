@@ -9,10 +9,14 @@
     <header>
         <%- include('../partials/header') %>
     </header>
+
     <form action="/events/<%=event._id%>?_method=PUT" method="POST">
         <!-- Match model form-->
         <button type="submit">Submit</button>
     </form>
+    <footer>
+        <%- include ('../partials/footer') %>
+    </footer>
 </body>
 
 </html>
