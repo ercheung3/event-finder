@@ -17,6 +17,10 @@ header {
     padding: 10px 0;
 }
 
+a {
+   color: black;
+   text-decoration: none;
+}
 .min-bar {
     display: flex;
     gap: 2rem;
@@ -71,4 +75,9 @@ main {
     background-color: #2fa6d4;
     cursor: pointer;
 }
-
+.submit-btn a {
+    color: white;
+}
+.register-link {
+    color: blue;
+}

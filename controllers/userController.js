@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
   req.body.password = hashedPassword;
   const newUser = await User.create(req.body);
   console.log(newUser);
-  res.redirect("/users");
+  res.redirect("/users/login");
 });
 
 // EDIT: GET
