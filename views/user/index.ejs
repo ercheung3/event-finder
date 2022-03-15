@@ -16,7 +16,29 @@
             <form action="/users">
                 <input type="text" name="username">
                 <button type="submit">Search for your events</button>
-                
+         <% event.forEach((event)=>{ %>
+            <% console.log(uID) %>
+            <% console.log(event) %>
+            <% if(event.likes.includes(uID)) { %>
+                <% console.log('you liked this') %>
+                <div class="upcoming-event-box">
+                    <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
+                    <ul class="event-info-box">
+                        <li>
+                            <a href="/events/<%=event._id%>">
+                                <%=event.name%>
+                            </a>
+                        </li>
+                        <li>
+                            <%=event.date%>
+                        </li>
+                        <li>
+                            <%=event.description%>
+                        </li>
+                    </ul>
+                </div>
+            <% } %>
+        <% }) %>   
             </form>
         
             <!-- 

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Event = require("../models/event");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -41,8 +42,11 @@ router.get("/logout", (req, res) => {
 
 router.get("/", async (req, res) => {
   const user = await User.find({ username: req.query.username });
+  const events = await Event.find();
   res.render("user/index.ejs", {
     user: user,
+    event: events,
+    uID: req.session.userId
   });
 });
 
@@ -56,12 +60,14 @@ router.get("/new", (req, res) => {
 // SHOW: GET
 // /users/:id
 // Shows a page displaying one user
-router.get("/:id", async (req, res) => {
-  const user = await User.findById(req.params.id);
-  res.render("user/show.ejs", {
-    user: user,
-  });
-});
+// router.get("/:id", async (req, res) => {
+//   const user = await User.findById(req.params.id);
+//   const events = await Event.find();
+//   res.render("user/show.ejs", {
+//     user: user,
+//     event: events
+//   });
+// });
 
 // CREATE: POST
 // /users
