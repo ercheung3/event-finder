@@ -1,7 +1,7 @@
 const Event = require("../models/event");
 const express = require("express");
 const router = express.Router();
-const isLoggedIn = require("./middleware/isLoggedIn");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 // INDEX: GET
 // /events
@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
 // CREATE: POST
 // /events
 // Creates an actual event, then...?
-router.post("/",isLoggedIn, async (req, res) => {
+router.post("/", isLoggedIn, async (req, res) => {
   req.body.user = req.session.userId;
   const newevent = await Event.create(req.body);
   console.log(newevent);
@@ -44,7 +44,7 @@ router.post("/",isLoggedIn, async (req, res) => {
 // EDIT: GET
 // /events/:id/edit
 // SHOW THE FORM TO EDIT A event
-router.get("/:id/edit",isLoggedIn, async (req, res) => {
+router.get("/:id/edit", isLoggedIn, async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
     res.render("event/edit.ejs", {
@@ -58,7 +58,7 @@ router.get("/:id/edit",isLoggedIn, async (req, res) => {
 // UPDATE: PUT
 // /events/:id
 // UPDATE THE event WITH THE SPECIFIC ID
-router.put("/:id",isLoggedIn, async (req, res) => {
+router.put("/:id", isLoggedIn, async (req, res) => {
   try {
     await Event.findByIdAndUpdate(req.params.id, req.body);
     res.redirect(`/events/${req.params.id}`);
@@ -69,7 +69,7 @@ router.put("/:id",isLoggedIn, async (req, res) => {
 // DELETE: DELETE
 // /events/:id
 // DELETE THE event WITH THE SPECIFIC ID
-router.delete("/:id",isLoggedIn, async (req, res) => {
+router.delete("/:id", isLoggedIn, async (req, res) => {
   try {
     await Event.findByIdAndDelete(req.params.id);
     res.redirect("/events");
