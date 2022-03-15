@@ -7,16 +7,32 @@
 
 <body>
     <header>
-    <%- include('../partials/header') %>
-</header>
+        <%- include('../partials/header') %>
+    </header>
     <h1>New event</h1>
     <!--Match the model for events-->
     <form action="/events " method="POST">
-        name: <input type="text" name="name">
-        description: <input type="text" name="description">
-        image URL: <input type="text" name="image">
-        date: <input type="text" name="date">
-        organization: <input type="text" name="organization">
+        <label for="name">Name:</label>
+        <input type="text" name="name">
+
+        <label for="description">Description:</label>
+        <input type="text" name="description">
+
+        <label for="image">Image URL:</label>
+        <input type="text" name="image">
+
+        <label for="date">Date:</label>
+        <input type="text" name="date">
+
+        <label for="organization">Organization:</label>
+        <input type="text" name="organization">
+
+        <label for="tag">Tag:</label>
+        <input type="text" name="tag">
+
+        <label for="location">Location:</label>
+        location: <input type="text" name="location">
+
         <button type="submit">Submit</button>
     </form>
 </body>
