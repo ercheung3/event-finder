@@ -77,5 +77,22 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
     res.sendStatus(500);
   }
 });
+//like: put
+// /events/:id/like
+// like post with specific id
+router.put("/:id/like", async (res, req)=>{
+  try{
+    //get specified event
+    const event = await Event.findById(req.params.id)
+    //check if post has been liked by user
+    if (!event.likes.includes(req.session.userId)) {
+      await event.updateOne({ $push: { likes: req.session.userId}})
+    } else {
+      await event.updateOne({ $pull: { likes: req.session.userId}})
+    }
+  }catch (err){
+
+  }
+})
 
 module.exports = router;

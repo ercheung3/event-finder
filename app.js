@@ -39,7 +39,6 @@ app.use(async (req, res, next) => {
 app.get("/", (req, res) => {
   res.redirect("/events");
 });
-require("./middleware/likeLogic");
 app.use("/events", eventController);
 app.use("/users", userController);
 
