@@ -60,14 +60,14 @@ main {
    margin-top: 1rem;
 }
 
-.login-btn {
+.submit-btn {
     background-color: #2fb4e9;
     padding: 8px 5px;
     border: 0;
     border-radius: 1px;
 }
 
-.login-btn:hover {
+.submit-btn:hover {
     background-color: #2fa6d4;
     cursor: pointer;
 }
