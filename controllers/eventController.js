@@ -2,11 +2,39 @@ const Event = require("../models/event");
 const express = require("express");
 const router = express.Router();
 const isLoggedIn = require("../middleware/isLoggedIn");
+const e = require("express");
 
 // INDEX: GET
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
+  /*
+  Search query: name: Graduation tag: Music
+  
+  req.query.name NOT EMPTY
+  req.query.tag NOT EMPTY
+  req.query.date EMPTY
+  
+  const querySearch = [];
+  console.log(req.query.name);
+  console.log("REQ NAME: " + req.query.name == false);
+  if (req.query.name) querySearch.push({ name: req.query.name });
+  //if(req.query.date) STRETCH FOR DATE SEARCH
+  if (req.query.tag) querySearch.push({ tag: req.query.tag });
+  if (req.query.location) querySearch.push({ location: req.query.location });
+
+  let events = null;
+  console.log(querySearch);
+  if (querySearch.length == 0) {
+    console.log("NO SEARCH");
+    //ALL EVENTS
+    events = await Event.find();
+  } else {
+    events = await Event.find({
+      $and: querySearch,
+    });
+  }
+*/
   const events = await Event.find();
   // Demo that res.locals is the same as the object passed to render
   res.render("event/index.ejs", {
