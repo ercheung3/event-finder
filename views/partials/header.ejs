@@ -4,11 +4,15 @@
 </nav> -->
 <header>
         <nav class="nav-bar">
-            <img src="../img/eventFinderLogo.png" alt="logo" class="logo">
+            <a href="/"><img src="../img/eventFinderLogo.png" alt="logo" class="logo"></a>
             <div class="min-bar">
-            <a href="#">Events</a>
-            <a href="#">Log In</a>
-            <button class="submit-btn"><a href="#">Sign Up</a><button>
+            <a href="/">Events</a>
+            <!-- conditional, if user is NOT logged in show: -->
+            <a href="/users/login">Log In</a>
+            <button class="submit-btn"><a href="users/new">Sign Up</a></button>
+            <!-- conditional, if user IS logged in show: -->
+            <a href="/users/edit">My Account</a>
+            <button class="submit-btn"><a href="users/logout">Log Out</a></button>
             </div>
         </nav>
     </header>
