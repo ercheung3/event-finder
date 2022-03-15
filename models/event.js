@@ -13,7 +13,7 @@ const eventSchema = new Schema(
     name: {
       type: String,
       unique: true,
-      required: true,
+      //required: true,
       minlength: 2,
     },
     description: {
@@ -35,27 +35,21 @@ const eventSchema = new Schema(
     },
     tag: {
       type: String,
-      enum: {
-        values: [
-          "Music",
-          "Community Event",
-          "Outdoor Recreation",
-          "Health/Fitness",
-        ],
-        message: "{VALUE} is not supported",
-      },
+      enum: [
+        "Music",
+        "Community Event",
+        "Outdoor Recreation",
+        "Health/Fitness",
+        "Arts & Culture",
+      ],
     },
     location: {
       type: String,
-      enum: {
-        values: ["Portland", "Las Vegas"],
-        message: "{VALUE} is not supported",
-      },
     },
     likes: {
-      type:Array,
-      default:[]
-    }
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );

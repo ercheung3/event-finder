@@ -9,8 +9,29 @@
     <header>
         <%- include('../partials/header') %>
     </header>
+
     <form action="/events/<%=event._id%>?_method=PUT" method="POST">
         <!-- Match model form-->
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="<%=event.name%>" required>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" name="description" value="<%=event.description%>">
+        <br>
+        <label for="image">Image URL:</label>
+        <input type="text" name="image" value="<%=event.image%>">
+        <br>
+        <label for="date">Date:</label>
+        <input type="text" name="date" value="<%=event.date%>">
+        <br>
+        <label for="organization">Organization:</label>
+        <input type="text" name="organization" value="<%=event.organization%>">
+        <br>
+        <label for="tag">Tag:</label>
+        <input type="text" name="tag" value="<%=event.tag%>">
+        <br>
+        <label for="location">Location:</label>
+        location: <input type="text" name="location" value="<%=event.location%>">
         <button type="submit">Submit</button>
     </form>
 </body>

@@ -19,13 +19,18 @@
                 <!-- When (date) -->
                 <div class="event-search-form-div">
                     <label class="event-search label" for="date">When</label>
-                    <input id="event-date-range" class="event-search input" type="text" name="date" placeholder="3/15/22">
+                    <input id="event-date-range" class="event-search input" type="text" name="date"
+                        placeholder="3/15/22">
                 </div>
                 <!-- What (event type dropdown menu) -->
                 <div class="event-search-form-div">
-                    <label class="event-search label" for="type">What</label>
+                    <label class="event-search label" for="tag">Tag</label>
                     <!-- insert bootstrap code for dropdown menu -->
-
+                    <input class="event-search input" type="text" name="tag">
+                </div>
+                <div class="event-search-form-div">
+                    <label class="event-search label" for="name">Name</label>
+                    <input class="event-search input" type="text" name="name">
                 </div>
                 <!-- Find events (button - add event listener) -->
                 <div class="event-search-form-div">
@@ -53,8 +58,8 @@
                                 </li>
                             </ul>
                         </div>
-                    <% } %>
-                <% }) %>
+                        <% } %>
+                            <% }) %>
             </div>
             <% } %>
 </body>
