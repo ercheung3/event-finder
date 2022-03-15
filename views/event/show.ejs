@@ -9,17 +9,57 @@
 </head>
 
 <body>
-    <h1><%= event.name %></h1>
+    <h1>
+        <%= event.name %>
+    </h1>
     <h3>Created by: <a href="/users/<%= event.user._id %>">
             <%= event.user.username %>
         </a>
     </h3>
-    <button class="likes-btn" id="<%=event._id%>">Save this Event!</button>
-    <button class="edit-btn"><a href="/events/<%=event._id%>/edit">Edit</a></button>
+    <% let eventArray=["name","description","image","date","tag","location","organization"] %>
+        <% console.log(Object.keys(event._doc)) %>
+            <% console.log(typeof event._doc) %>
+                <ul>
+                    <% Object.keys(event._doc).forEach( key=> { %>
+                        <%=key%>
+                            <% }) %>
 
-    <form action="/events/<%= event._id %>?_method=DELETE" method="post">
-        <button type="submit">Delete <%= event.name %>?</button>
-    </form>
+                                <% eventArray.forEach( key=> { %>
+                                    <% //console.log(key)%>
+                                        <% //console.log(event.name) %>
+                                            <% if(event.key) {%>
+                                                <% if(key==="image" ) { %>
+                                                    <img src="<%=event.key%>">
+                                                    <% } else { %>
+                                                        <li>
+                                                            <%=event.key%>
+                                                        </li>
+                                                        <% } %>
+                                                            <% } %>
+                                                                <% }) %>
+                </ul>
+                <%console.log(currId) %>
+                    <%console.log(event.user._id)%>
+                        <%console.log(currId==event.user._id) %>
+                            <% if(event.likes.includes(currId)) { %>
+                                <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
+                                    <button type="submit">YOU LIKE THIS EVENT!</button>
+                                </form>
+                                <% } else { %>
+                                    <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
+                                        <button type="submit">Save this Event!</button>
+                                    </form>
+                                    <% } %>
+
+                                        <%if(currId==event.user._id) {%>
+                                            <button class="edit-btn"><a
+                                                    href="/events/<%=event._id%>/edit">Edit</a></button>
+
+                                            <form action="/events/<%= event._id %>?_method=DELETE" method="POST">
+                                                <button type="submit">Delete <%= event.name %>?</button>
+                                            </form>
+
+                                            <%}%>
 </body>
-<script src="../../middleware/likeLogic.js"></script>
+
 </html>

@@ -26,8 +26,10 @@ router.get("/new", isLoggedIn, (req, res) => {
 router.get("/:id", async (req, res) => {
   const event = await Event.findById(req.params.id).populate("user");
   console.log("SHOW EVENT: " + event);
+  const currId = req.session.userId;
   res.render("event/show.ejs", {
     event: event,
+    currId: currId,
   });
 });
 
@@ -80,19 +82,21 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 //like: put
 // /events/:id/like
 // like post with specific id
-router.put("/:id/like", async (res, req)=>{
-  try{
+router.put("/:id/like", async (req, res) => {
+  try {
     //get specified event
-    const event = await Event.findById(req.params.id)
+    const event = await Event.findById(req.params.id);
     //check if post has been liked by user
     if (!event.likes.includes(req.session.userId)) {
-      await event.updateOne({ $push: { likes: req.session.userId}})
+      await event.updateOne({ $push: { likes: req.session.userId } });
     } else {
-      await event.updateOne({ $pull: { likes: req.session.userId}})
+      await event.updateOne({ $pull: { likes: req.session.userId } });
     }
-  }catch (err){
-
+    res.redirect(`/events/${req.params.id}`);
+    //Add alert for adding like
+  } catch (err) {
+    console.log(err);
   }
-})
+});
 
 module.exports = router;
