@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Event Palooza | Events</title>
 </head>
 
 <body>
@@ -14,15 +14,48 @@
         <h2>There are no events yet!</h2>
         <a href="/events/new">Create one now!</a>
         <% } else { %>
-            <ul class="events">
+            <form class="event-search-form-container" method="POST">
+                <!-- container for user to search for events -->
+                <!-- When (date) -->
+                <div class="event-search-form-div">
+                    <label class="event-search label" for="date">When</label>
+                    <input id="event-date-range" class="event-search input" type="text" name="date" placeholder="3/15/22">
+                </div>
+                <!-- What (event type dropdown menu) -->
+                <div class="event-search-form-div">
+                    <label class="event-search label" for="type">What</label>
+                    <!-- insert bootstrap code for dropdown menu -->
+
+                </div>
+                <!-- Find events (button - add event listener) -->
+                <div class="event-search-form-div">
+                    <button type="submit">Find Events</button>
+                </div>
+            </form>
+            <!-- below shows all upcoming events -->
+            <div class="upcoming-events-container">
+                <h2>Upcoming Events</h2>
                 <% event.forEach((event)=>{ %>
                     <% if(true){ %>
-                        <li>
-                            <a href="/events/<%=event._id%>"><%= event.name %></a>: <%=event.description%>
-                        </li>
-                        <% } %>
-                            <% }) %>
-            </ul>
+                        <div class="upcoming-event-box">
+                            <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
+                            <ul class="event-info-box">
+                                <li>
+                                    <a href="/events/<%=event._id%>">
+                                        <%=event.name%>
+                                    </a>
+                                </li>
+                                <li>
+                                    <%=event.date%>
+                                </li>
+                                <li>
+                                    <%=event.description%>
+                                </li>
+                            </ul>
+                        </div>
+                    <% } %>
+                <% }) %>
+            </div>
             <% } %>
 </body>
 
