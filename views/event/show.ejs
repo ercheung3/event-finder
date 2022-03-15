@@ -43,11 +43,11 @@
         </ul>
         <% if(event.likes.includes(currId)) { %>
             <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
-                <button type="submit">YOU LIKE THIS EVENT!</button>
+                <button class="like-btn-is-liked" type="submit">YOU LIKE THIS EVENT!</button>
             </form>
             <% } else { %>
                 <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
-                    <button type="submit">Save this Event!</button>
+                    <button class="like-btn" type="submit">Save this Event!</button>
                 </form>
                 <% } %>
 

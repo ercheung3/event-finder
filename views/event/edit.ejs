@@ -12,7 +12,37 @@
 
     <form action="/events/<%=event._id%>?_method=PUT" method="POST">
         <!-- Match model form-->
-        <button type="submit">Submit</button>
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="<%=event.name%>" required>
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" name="description" value="<%=event.description%>">
+        <br>
+        <label for="image">Image URL:</label>
+        <input type="text" name="image" value="<%=event.image%>">
+        <br>
+        <label for="date">Date:</label>
+        <input type="text" name="date" value="<%=event.date%>">
+        <br>
+        <label for="organization">Organization:</label>
+        <input type="text" name="organization" value="<%=event.organization%>">
+        <br>
+        <label for="tag">Event Type:</label>
+        <div class="dropdown">
+            <select name="tag" id="dropdown-event-tag">
+                <option value="<%=event.tag%>"><%=event.tag%></option>
+                <!-- need to create a conditional to show all other tags that do not equal current tag? -->
+                <option value="Music">Music</option>
+                <option value="Arts & Culture">Arts & Culture</option>
+                <option value="Community Events">Community Events</option>
+                <option value="Outdoor Recreation">Outdoor Recreation</option>
+                <option value="Health/Fitness">Health/Fitness</option>
+            </select>
+        </div>
+        <br>
+        <label for="location">Location:</label>
+        location: <input type="text" name="location" value="<%=event.location%>">
+        <button class="submit-btn" type="submit">Submit</button>
     </form>
     <footer>
         <%- include ('../partials/footer') %>
