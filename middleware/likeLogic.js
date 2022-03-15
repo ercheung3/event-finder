@@ -2,8 +2,11 @@ let buttons = document.querySelectorAll('.likes-btn');
 //every button with class of likes
 for(let button of buttons){
     //get each button and add event listener
-    button.addEventListener('click', ()=>{
-    //make sure user in logged in
+    button.addEventListener('click', likePost)
+        //make sure user in logged in
+    
+    async function likePost(){
+        console.log(button.id)
     if (req.session.isLoggedIn) {
         //find event by id which should be the same as the button
         const thisEvent = Event.findById(button.id)
@@ -15,5 +18,5 @@ for(let button of buttons){
       } else {
         alert("You must be logged in to Like events")
       }
-    })
+    }
 }
