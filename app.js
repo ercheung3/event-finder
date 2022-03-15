@@ -39,7 +39,7 @@ app.use(async (req, res, next) => {
 app.get("/", (req, res) => {
   res.redirect("/events");
 });
-app.use("/events", isLoggedIn, eventController);
+app.use("/events", eventController);
 app.use("/users", userController);
 
 const port = process.env.PORT || 3000;
