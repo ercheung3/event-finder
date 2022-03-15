@@ -26,11 +26,34 @@ const eventSchema = new Schema(
       type: Date,
       min: year - month - day,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     organization: {
       type: String,
     },
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    tag: {
+      type: String,
+      enum: {
+        values: [
+          "Music",
+          "Community Event",
+          "Outdoor Recreation",
+          "Health/Fitness",
+        ],
+        message: "{VALUE} is not supported",
+      },
+    },
+    location: {
+      type: String,
+      enum: {
+        values: ["Portland", "Las Vegas"],
+        message: "{VALUE} is not supported",
+      },
+    },
   },
+
   { timestamps: true }
 );
 // stretch goal - location nearest zip
