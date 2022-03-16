@@ -11,9 +11,19 @@
     </header>
     <form action="/users/<%=user.username%>?_method=PUT" method="POST">
         <!-- Match model form-->
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+        <label for="displayname">Display Name:</label>
+        <input type="text" name="displayname">
+        <label for="firstname">First Name:</label>
+        <input type="text" name="firstname">
+        <label for="lastname">Last Name:</label>
+        <input type="text" name="lastname">
         <button type="submit">Submit</button>
     </form>
-    
-        <%- include ('../partials/footer') %>
-    
+
+    <%- include ('../partials/footer') %>
+
 </body>
