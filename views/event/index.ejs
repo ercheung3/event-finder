@@ -52,16 +52,6 @@
                     <h2 class="page-sub-heading">Upcoming Events</h2>
                     <p>Check out all the upcoming events here, or search for specific events above.</p>
                     <div class="upcoming-events-grid-container">
-                        <% let usedName = [] %>
-                        <% results.forEach(result => {%>
-                            <% if(!usedName.includes(result.name)) {%>
-                            <div style="background-image: url(<%=result.images[0].url%>)">
-                                <h1><%=result.name%></h1>
-                                <p><%=result.classifications[0].segment.name%></p>
-                            </div>
-                            <%usedName.push(result.name)%>
-                            <% } %>
-                        <%})%>
                         <% event.forEach((event)=>{ %>
                             <% if(true){ %>
                                 <div class="upcoming-event-box">
@@ -77,6 +67,7 @@
                                                 <img class="event-img-placeholder" src="../../img/event-img.png" alt="Calendar icon">
                                                 </a>
                                             <% } %>
+                                            
                                     </div>
                                     <ul class="event-info-box">
                                         <li>
@@ -96,7 +87,53 @@
                                 </div>
                             <% } %>
                         <% }) %>
+                        <% let usedName = [] %>
+                        <% results.forEach(result => {%>
+                            <% if(!usedName.includes(result.name)) {%>
+                                <div class="upcoming-event-box">
+                                    <div class="event-img-box">
+                                            <a href="/events/<%=event._id%>">
+                                            <div class="event-img-bkg" style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center" aria-label="Picture of <%=event.name%>"></div>
+                                            </a>
+                                            
+                                    </div>
+                                    <ul class="event-info-box">
+                                        <li>
+                                            <h4>
+                                                <a href="/events/<%=event._id%>">
+                                                    <%=result.name%>
+                                                </a>
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <%=result.classifications[0].segment.name%>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <div style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center">
+                                <h1><%=result.name%></h1>
+                                <p><%=result.classifications[0].segment.name%></p>
+                            </div>
+                            <%usedName.push(result.name)%>
+                            <% } %>
+                        <%})%>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </section>
             <% } %>
     </div>
