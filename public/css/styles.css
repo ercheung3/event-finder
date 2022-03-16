@@ -1,25 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
+/* ========================== GLOBAL PAGE STYLES ========================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
-
+body {
+    background-color: #f3efef;
+    min-height: 100vh;
+    position: relative;
+}
+/* ============================== PARTIALS ============================== */
 header {
     background-color: #FAF9F6;
 }
-
 .nav-bar {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-}
-
-a {
-   color: black;
-   text-decoration: none;
 }
 .min-bar {
     display: flex;
@@ -28,19 +27,39 @@ a {
     margin-top: 1rem;
     padding: 0 3rem;
 }
-body {
-    background-color: #f3efef;
-    min-height: 100vh;
-    position: relative;
-}
 .min-bar h2 {
     font-weight: lighter;
 }
 .logo {
     width: 100px;
 }
-
-/* login form */
+/* =========================== PAGE HEADINGS =========================== */
+.page-heading, .page-sub-heading  {
+    margin: 20px;
+}
+/* ============================== BUTTONS ============================== */
+.submit-btn {
+    background-color: #2fb4e9;
+    padding: 8px 5px;
+    border: 0;
+    border-radius: 1px;
+}
+.submit-btn:hover {
+    background-color: #2fa6d4;
+    cursor: pointer;
+}
+.submit-btn a {
+    color: white;
+}
+/* =============================== LINKS =============================== */
+.register-link {
+    color: blue;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+/* =========================== USER - LOGIN ============================ */
 main {
     display: flex;
     justify-content: center;
@@ -63,27 +82,45 @@ main {
     flex-direction: column;
 }
 .bottom-register p {
-   margin-top: 1rem;
+    margin-top: 1rem;
 }
-
-.submit-btn {
-    background-color: #2fb4e9;
-    padding: 8px 5px;
-    border: 0;
-    border-radius: 1px;
+/* ========================== EVENTS - INDEX ========================== */
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.submit-btn:hover {
-    background-color: #2fa6d4;
-    cursor: pointer;
+.event-search-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
-.submit-btn a {
-    color: white;
+.event-search-form-div {
+    margin: 10px;
+    padding: 10px
+}
+.upcoming-events-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.upcoming-event-box {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+}
+.event-info-box {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 .register-link {
     color: blue;
 }
-
+/* =========================== FOOTER =========================== */
 footer {
     background-color: #FAF9F6;
     padding: 2.5rem 0;
@@ -96,5 +133,4 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    
 }
