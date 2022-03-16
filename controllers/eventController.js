@@ -1,21 +1,43 @@
 const Event = require("../models/event");
+require('dotenv').config()
 const express = require("express");
 const router = express.Router();
+const axios =require ('axios')
 const isLoggedIn = require("../middleware/isLoggedIn");
 const e = require("express");
-
+const auth = {
+  header: {
+    'x-rapidapi-key': process.env.API_Key
+  }
+}
 // INDEX: GET
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
   const events = await Event.find();
   const currId = req.session.userId;
+  //end date time
+  let d = new Date(); 
+  let endMonth = d.getMonth() + 4;
+  let endDate = `${d.getFullYear()}${endMonth}${d.getDate()}`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&apikey=qvcGdc7RNhL7hYoctmdW7gKVBJ3HLAGz`
+  axios({
+    method: 'get',
+    url: apiUrl,
+    async: true,
+    dataType: "json"
+  })
+  .then(apires => {
+    res.render('event/index.ejs', {
+      results: apires.data._embedded.events,
+      event: events,
+      currId: currId,
+
+    })
+  })
+
+    });
   // Demo that res.locals is the same as the object passed to render
-  res.render("event/index.ejs", {
-    event: events,
-    currId: currId
-  });
-});
 
 router.get("/search", async (req, res) => {
   /*

@@ -52,6 +52,13 @@
                     <h2 class="page-sub-heading">Upcoming Events</h2>
                     <p>Check out all the upcoming events here, or search for specific events above.</p>
                     <div class="upcoming-events-grid-container">
+                        <% let usedName = [] %>
+                        <% results.forEach(result => {%>
+                            <% if(!usedName.includes(result.name)) {%>
+                            <h1><%=result.name%></h1>
+                            <%usedName.push(result.name)%>
+                            <% } %>
+                        <%})%>
                         <% event.forEach((event)=>{ %>
                             <% if(true){ %>
                                 <div class="upcoming-event-box">
