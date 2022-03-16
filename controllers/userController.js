@@ -100,17 +100,18 @@ router.post("/", async (req, res) => {
 router.get("/:displayname/edit", async (req, res) => {
   try {
     const user = await User.findOne({ displayname: req.params.displayname });
-    //Type Issue?
-    if (req.session.userId === user._id) {
+    //Type issue correction with toString()
+    if (req.session.userId.toString() === user._id.toString()) {
       const currId = req.session.userId;
       res.render("user/edit.ejs", {
         user: user,
         currId: currId,
       });
     } else {
-      throw new Error("You're NOT THAT USER!");
+      throw new Error("YOU'RE NOT THAT USER!");
     }
   } catch (err) {
+    console.log(err);
     res.sendStatus(500);
   }
 });
