@@ -13,6 +13,7 @@ router.get("/login", (req, res) => {
     currId: currId,
   });
 });
+
 router.post("/login", async (req, res) => {
   try {
     // Grab the user from the database with the username from the form
@@ -44,9 +45,9 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const user = await User.find();
-  const events =
-    (await Event.find({ name: req.query.username })) || Event.find();
+  //const user = await User.find();
+  const events = (await Event.find({ name: req.query.name })) || Event.find();
+  const user = await User.findOne({ _id: req.session.userId });
   res.render("user/index.ejs", {
     user: user,
     event: events,
@@ -132,6 +133,7 @@ router.put("/:displayname", async (req, res) => {
 // DELETE: DELETE
 // /users/:id
 // DELETE THE USER WITH THE SPECIFIC ID
+/*
 router.delete("/:id", async (req, res) => {
   try {
     //await User.findByIdAndDelete(req.params.id);
@@ -141,7 +143,8 @@ router.delete("/:id", async (req, res) => {
     res.sendStatus(500);
   }
 });
-/*
+*/
+
 router.delete("/:displayname", async (req, res) => {
   try {
     await User.findOneAndDelete({ displayname: req.params.displayname });
@@ -150,6 +153,5 @@ router.delete("/:displayname", async (req, res) => {
     res.sendStatus(500);
   }
 });
-*/
 
 module.exports = router;

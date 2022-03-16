@@ -31,7 +31,9 @@ app.use(async (req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn;
   if (req.session.isLoggedIn) {
     const currentUser = await User.findById(req.session.userId);
+    //Global use variables across
     res.locals.username = currentUser.username;
+    res.locals.displayname = currentUser.displayname;
     res.locals.userId = req.session.userId.toString();
   }
   next();
