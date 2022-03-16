@@ -21,7 +21,7 @@ router.post("/login", async (req, res) => {
         // It's a match! Successful login!
         req.session.isLoggedIn = true;
         req.session.userId = possibleUser._id;
-        res.redirect("/events");
+        res.redirect("/users");
       } else {
         res.redirect("/users/login");
       }
@@ -41,8 +41,8 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const user = await User.find({ username: req.query.username });
-  const events = await Event.find();
+  const user = await User.find();
+  const events = await Event.find({ name: req.query.username }) || Event.find();
   res.render("user/index.ejs", {
     user: user,
     event: events,
