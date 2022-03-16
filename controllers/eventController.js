@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   // Demo that res.locals is the same as the object passed to render
   res.render("event/index.ejs", {
     event: events,
-    currId: currId
+    currId: currId,
   });
 });
 
@@ -51,7 +51,7 @@ router.get("/search", async (req, res) => {
   console.log(events);
   res.render("event/search.ejs", {
     events: events,
-    currId: currId
+    currId: currId,
   });
 });
 
@@ -61,7 +61,7 @@ router.get("/search", async (req, res) => {
 router.get("/new", isLoggedIn, (req, res) => {
   const currId = req.session.userId;
   res.render("event/new.ejs", {
-    currId: currId
+    currId: currId,
   });
 });
 
@@ -97,7 +97,7 @@ router.get("/:id/edit", isLoggedIn, async (req, res) => {
     const event = await Event.findById(req.params.id);
     res.render("event/edit.ejs", {
       event: event,
-      currId: currId
+      currId: currId,
     });
   } catch (err) {
     res.sendStatus(500);
