@@ -12,6 +12,7 @@
 
     <% if(isLoggedIn){ %>
         <h1>Welcome back <%= displayname %>!</h1>
+        <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
         <h1>Here are all the events you are interested in:</h1>
         <form action="/users">
             <input type="text" name="name">
