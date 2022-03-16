@@ -55,7 +55,10 @@
                         <% let usedName = [] %>
                         <% results.forEach(result => {%>
                             <% if(!usedName.includes(result.name)) {%>
-                            <h1><%=result.name%></h1>
+                            <div style="background-image: url(<%=result.images[0].url%>)">
+                                <h1><%=result.name%></h1>
+                                <p><%=result.classifications[0].segment.name%></p>
+                            </div>
                             <%usedName.push(result.name)%>
                             <% } %>
                         <%})%>

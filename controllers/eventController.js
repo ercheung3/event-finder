@@ -18,9 +18,22 @@ router.get("/", async (req, res) => {
   const currId = req.session.userId;
   //end date time
   let d = new Date(); 
-  let endMonth = d.getMonth() + 4;
-  let endDate = `${d.getFullYear()}${endMonth}${d.getDate()}`;
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&apikey=qvcGdc7RNhL7hYoctmdW7gKVBJ3HLAGz`
+  let endDate = Number(d.getMonth() + 3)
+if(endDate < 10){
+    endDate = `0${endDate}`
+} else {
+    endDate = endDate
+}
+if(d.getDate() < 10){
+    var date1 = `0${d.getDate()}`
+} else {
+    var date1 = d.getDate()
+}
+  const exactString = `${d.getFullYear()}-${endDate}-${date1}T18:00:00Z`
+  //endDateTime=${exactString}$
+  console.log('i am read')
+  console.log(`bazinga ${exactString}`)
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=qvcGdc7RNhL7hYoctmdW7gKVBJ3HLAGz`
   axios({
     method: 'get',
     url: apiUrl,
