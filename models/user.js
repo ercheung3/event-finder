@@ -5,15 +5,9 @@ const userSchema = new Schema(
   {
     username: { type: String, unique: true, required: true, minlength: 2 },
     password: { type: String, required: true },
-    name: {
-      first: {
-        type: String,
-        required: true,
-      },
-      last: {
-        type: String,
-      },
-    },
+    displayname: { type: String },
+    firstname: { type: String },
+    lastname: { type: String },
   },
   { timestamps: true }
 );
