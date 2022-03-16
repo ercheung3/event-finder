@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    
+
+    
+   <%- include ('../partials/footer') %>
+</body>
+   
+   <main>
+       <div class="form">
+           <h2>New Event</h2>
+       </div>
+       <form action="/events" class="actual-form" method="POST">
+           <div class="event-container">
+               <label for="name">Name:</label>
+               <input type="text" name="name">
+               <label for="description">Description:</label>
+                <input type="text" name="description">
+                <label for="image">Image URL:</label>
+                <input type="text" name="image">
+                <label for="date">Date:</label>
+                <input type="text" name="date">
+                <label for="organization">Organization:</label>
+                <input type="text" name="organization">
+                <label for="tag">Event Type:</label>
+           </div>
+           <div class="drop">
+            <select name="tag" id="dropdown-event-tag">
+                <option value="">--Select Event Type--</option>
+                <option value="Music">Music</option>
+                <option value="Arts & Culture">Arts & Culture</option>
+                <option value="Community Events">Community Events</option>
+                <option value="Outdoor Recreation">Outdoor Recreation</option>
+                <option value="Health/Fitness">Health/Fitness</option>
+            </select>
+           </div>
+           <label for="location">Location:</label>
+           <input type="text" name="location">
+
+           <button class="submit-btn" type="submit">Submit</button>
+       </form>
+   </main>
+</html>
