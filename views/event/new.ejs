@@ -2,15 +2,16 @@
 <html lang="en">
 
 <head>
-    <%- include('../partials/head') %>
+    <%- include('../partials/newEventHead') %>
 </head>
 
 <body>
     <header>
         <%- include('../partials/header') %>
     </header>
+    <!--
     <h1>New event</h1>
-    <!--Match the model for events-->
+
     <form action="/events " method="POST">
         <label for="name">Name:</label>
         <input type="text" name="name">
@@ -44,7 +45,50 @@
 
         <button class="submit-btn" type="submit">Submit</button>
     </form>
-    
+    -->
+        <div class="new-event-flex">
+                <h2>New Event</h2>
+        <form action="/events" class="form-container"method="POST">
+              <div class="event-container">
+                <div class="name-div">
+                <label for="name">Name:</label>
+                <input type="text" name="name">
+               </div>
+               <div class="descrip-div">
+                <label for="description">Description:</label>
+                 <input type="text" name="description">
+                </div>
+                <div class="img-div">
+                 <label for="image">Image URL:</label>
+                 <input type="text" name="image">
+                </div>
+                 <div class="date-div">
+                 <label for="date">Date:</label>
+                 <input type="text" name="date">
+                </div>
+                <div class="org-div">
+                 <label for="organization">Organization:</label>
+                 <input type="text" name="organization">
+                </div>
+                 <div class="drop">
+                 <select name="tag" >
+                    <option value="">--Select Event Type--</option>
+                    <option value="Music">Music</option>
+                    <option value="Arts & Culture">Arts & Culture</option>
+                    <option value="Community Events">Community Events</option>
+                    <option value="Outdoor Recreation">Outdoor Recreation</option>
+                    <option value="Health/Fitness">Health/Fitness</option>
+                </select>
+                </div>
+                <div class="bottom-submit">
+                    <label for="location">Location:</label>
+                    <input type="text" name="location">
+                    <button class="submit-btn2" type="submit">Submit</button>
+                </div>
+                </div>   
+        </form>
+       </div>
+
         <%- include ('../partials/footer') %>
     
 </body>
