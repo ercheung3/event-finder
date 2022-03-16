@@ -1,27 +1,18 @@
-<!-- <nav>
-  <h1 id="store"><a href="/products">The Mongoose Store</a></h1>
-  <button type="button" name="button" class="new-product"><a href="/products/new">New Product</a></button>
-</nav> -->
 <header>
-        <nav class="nav-bar">
-            <a href="/"><img src="../img/eventFinderLogo.png" alt="logo" class="logo"></a>
-            <div class="min-bar">
-            <a href="/">Events</a>
-            <!-- conditional, if user is NOT logged in show: -->
-            <a href="/users/login">Log In</a>
-            <button class="submit-btn"><a href="/users/new">Sign Up</a></button>
-            <!-- conditional, if user IS logged in show: -->
-            <a href="/users">Home</a>
-            <a href="/users/edit">My Account</a>
-            <button class="submit-btn"><a href="/users/logout">Log Out</a></button>
-            </div>
-        </nav>
-    </header>
-
-
-
-
-
-
-
-    
+  <nav class="nav-bar">
+    <a href="/"><img src="../img/eventFinderLogo.png" alt="logo" class="logo"></a>
+    <div class="min-bar">
+      <a href="/">Events</a>
+        <% if(currId){ %>
+          <!-- conditional, if user IS logged in show: -->
+          <a href="/users">Home</a>
+          <a href="/users/<%=displayname%>/edit">My Account</a>
+          <button class="submit-btn"><a href="/users/logout">Log Out</a></button>
+        <% }else { %>
+          <!-- if user is NOT logged in show: -->
+          <a href="/users/login">Log In</a>
+          <button class="submit-btn"><a href="/users/new">Sign Up</a></button>
+        <% } %>
+    </div>
+  </nav>
+</header>
