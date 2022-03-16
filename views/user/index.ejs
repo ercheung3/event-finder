@@ -11,10 +11,10 @@
     </header>
 
     <% if(isLoggedIn){ %>
-        <h1>Welcome back <%= username %>!</h1>
+        <h1>Welcome back <%= displayname %>!</h1>
         <h1>Here are all the events you are interested in:</h1>
         <form action="/users">
-            <input type="text" name="username">
+            <input type="text" name="name">
             <button type="submit">Search for your events</button>
             <% event.forEach((event)=>{ %>
                 <% console.log(currId) %>
