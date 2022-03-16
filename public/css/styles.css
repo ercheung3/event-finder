@@ -124,13 +124,12 @@ main {
 footer {
     background-color: #FAF9F6;
     padding: 2.5rem 0;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
-    height: 9rem;
+    height: 100px;
+    margin-top: 9rem;
 }
-.footer-flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+footer p {
+    text-align: center;
 }
