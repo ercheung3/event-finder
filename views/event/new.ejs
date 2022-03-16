@@ -14,36 +14,36 @@
             <div class="newEvent-heading">
                 <h2>New Event</h2>
             </div>
-         <form action="/events" class="real-form" method = "POST">
-             <div class="form-inputs">
-             <input type="text" placeholder="Name" name="FIELD">
-             <input type="text" placeholder="Description" name="FIELD">
-             <input type="text" placeholder="Image URL" name="FIELD">
-             <input type="text" placeholder="Date" name="FIELD">
-             <input type="text" placeholder="Organization" name="FIELD">
-            
-             <div class="drop">
-                <select name="tag" >
-                   <option value="">Select Event Type</option>
-                   <option value="Music">Music</option>
-                   <option value="Arts & Culture">Arts & Culture</option>
-                   <option value="Community Event">Community Event</option>
-                   <option value="Outdoor Recreation">Outdoor Recreation</option>
-                   <option value="Health/Fitness">Health/Fitness</option>
-               </select>
-               </div>
-               <div class="bottom-submit">
-                <input type="text" name="FIELD" placeholder="Location">
-                <button class="submit-btn2" type="submit">Submit</button>
-            </div>
-        </div>
-          </form>
-        </div>
-    </main>   
-    
+            <form action="/events" class="real-form" method="POST">
+                <div class="form-inputs">
+                    <input type="text" placeholder="Name" name="name">
+                    <input type="text" placeholder="Description" name="description">
+                    <input type="text" placeholder="Image URL" name="image">
+                    <input type="text" placeholder="Date" name="date">
+                    <input type="text" placeholder="Organization" name="organization">
 
-  <%- include ('../partials/footer') %>
-    
+                    <div class="drop">
+                        <select name="tag">
+                            <option value="">Select Event Type</option>
+                            <option value="Music">Music</option>
+                            <option value="Arts & Culture">Arts & Culture</option>
+                            <option value="Community Event">Community Event</option>
+                            <option value="Outdoor Recreation">Outdoor Recreation</option>
+                            <option value="Health/Fitness">Health/Fitness</option>
+                        </select>
+                    </div>
+                    <div class="bottom-submit">
+                        <input type="text" name="location" placeholder="Location">
+                        <button class="submit-btn2" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+    <%- include ('../partials/footer') %>
+
 </body>
 
 </html>
