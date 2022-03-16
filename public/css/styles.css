@@ -35,7 +35,7 @@ header {
 }
 /* =========================== PAGE HEADINGS =========================== */
 .page-heading, .page-sub-heading  {
-    margin: 20px;
+    margin: 20px 0;
 }
 /* ============================== BUTTONS ============================== */
 .submit-btn {
@@ -83,42 +83,6 @@ main {
 }
 .bottom-register p {
     margin-top: 1rem;
-}
-/* ========================== EVENTS - INDEX ========================== */
-.page-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.event-search-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-.event-search-form-div {
-    margin: 10px;
-    padding: 10px
-}
-.upcoming-events-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.upcoming-event-box {
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    margin: 10px;
-    padding: 10px;
-}
-.event-info-box {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-}
-.register-link {
-    color: blue;
 }
 /* =========================== FOOTER =========================== */
 footer {
