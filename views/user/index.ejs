@@ -17,9 +17,9 @@
                 <input type="text" name="username">
                 <button type="submit">Search for your events</button>
          <% event.forEach((event)=>{ %>
-            <% console.log(uID) %>
+            <% console.log(currId) %>
             <% console.log(event) %>
-            <% if(event.likes.includes(uID)) { %>
+            <% if(event.likes.includes(currId)) { %>
                 <% console.log('you liked this') %>
                 <div class="upcoming-event-box">
                     <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">

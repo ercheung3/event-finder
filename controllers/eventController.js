@@ -9,9 +9,11 @@ const e = require("express");
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
   const events = await Event.find();
+  const currId = req.session.userId;
   // Demo that res.locals is the same as the object passed to render
   res.render("event/index.ejs", {
     event: events,
+    currId: currId
   });
 });
 
@@ -44,10 +46,12 @@ router.get("/search", async (req, res) => {
   }
 */
   console.log(req.query);
+  const currId = req.session.userId;
   const events = await Event.find(req.query);
   console.log(events);
   res.render("event/search.ejs", {
     events: events,
+    currId: currId
   });
 });
 
@@ -55,7 +59,10 @@ router.get("/search", async (req, res) => {
 // /events/new
 // Shows a form to create a new event
 router.get("/new", isLoggedIn, (req, res) => {
-  res.render("event/new.ejs");
+  const currId = req.session.userId;
+  res.render("event/new.ejs", {
+    currId: currId
+  });
 });
 
 // SHOW: GET
@@ -86,9 +93,11 @@ router.post("/", isLoggedIn, async (req, res) => {
 // SHOW THE FORM TO EDIT A event
 router.get("/:id/edit", isLoggedIn, async (req, res) => {
   try {
+    const currId = req.session.userId;
     const event = await Event.findById(req.params.id);
     res.render("event/edit.ejs", {
       event: event,
+      currId: currId
     });
   } catch (err) {
     res.sendStatus(500);
