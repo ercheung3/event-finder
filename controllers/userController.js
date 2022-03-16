@@ -8,7 +8,10 @@ const bcrypt = require("bcryptjs");
 // /users
 // Gives a page displaying all the users
 router.get("/login", (req, res) => {
-  res.render("user/login.ejs");
+  const currId = req.session.userId;
+  res.render("user/login.ejs", {
+    currId: currId
+  });
 });
 router.post("/login", async (req, res) => {
   try {
@@ -46,7 +49,7 @@ router.get("/", async (req, res) => {
   res.render("user/index.ejs", {
     user: user,
     event: events,
-    uID: req.session.userId
+    currId: req.session.userId
   });
 });
 
@@ -54,7 +57,10 @@ router.get("/", async (req, res) => {
 // /users/new
 // Shows a form to create a new user
 router.get("/new", (req, res) => {
-  res.render("user/new.ejs");
+  const currId = req.session.userId;
+  res.render("user/new.ejs", {
+    currId: currId
+  });
 });
 
 // SHOW: GET
@@ -92,8 +98,10 @@ router.get("/:id/edit", async (req, res) => {
   try {
     if (req.session.userId === req.params.id) {
       const user = await User.findById(req.params.id);
+      const currId = req.session.userId;
       res.render("user/edit.ejs", {
         user: user,
+        currId: currId
       });
     } else {
       throw new Error("You're NOT THAT USER!");
