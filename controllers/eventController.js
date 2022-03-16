@@ -8,6 +8,14 @@ const e = require("express");
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
+  const events = await Event.find();
+  // Demo that res.locals is the same as the object passed to render
+  res.render("event/index.ejs", {
+    event: events,
+  });
+});
+
+router.get("/search", async (req, res) => {
   /*
   Search query: name: Graduation tag: Music
   
@@ -35,12 +43,14 @@ router.get("/", async (req, res) => {
     });
   }
 */
-  const events = await Event.find();
-  // Demo that res.locals is the same as the object passed to render
-  res.render("event/index.ejs", {
-    event: events,
+  console.log(req.query);
+  const events = await Event.find(req.query);
+  console.log(events);
+  res.render("event/search.ejs", {
+    events: events,
   });
 });
+
 // NEW: GET
 // /events/new
 // Shows a form to create a new event
