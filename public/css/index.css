@@ -1,0 +1,47 @@
+/* ========================== EVENTS - INDEX ========================== */
+.index-page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.event-search-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.event-search-form-div {
+    margin: 10px;
+    padding: 10px
+}
+.upcoming-events-section {
+    margin: 0 20rem;
+}
+.upcoming-events-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 10px 0;
+}
+.upcoming-event-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 10px;
+}
+.event-img-bkg, .event-img-placeholder {
+    height: 200px;
+    width: 200px;
+}
+.event-img-bkg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.event-info-box {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+.register-link {
+    color: blue;
+}

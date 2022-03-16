@@ -1,0 +1,37 @@
+.event-show-section {
+    margin: 20px 100px;
+}
+.event-show-container, .event-img-box, .show-text, .btn-container {
+    margin: 20px 0;
+}
+.show-tag, .show-created-by {
+    font-style: italic;
+    font-size: .75em;
+}
+.show-tag {
+    display: inline-block;
+    border: 1px solid #2fb4e9;
+    padding: 2px;
+}
+.show-created-by a {
+    text-decoration: underline;
+}
+.btn-container.user {
+    display: flex;
+}
+.user-btn.edit {
+    margin-right: 10px;
+    background-color: #2fb4e9;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 1px;
+}
+.user-btn.delete {
+    margin-left: 10px;
+}
+.user-btn button {
+    background-color: rgb(180, 119, 119);
+    padding: 5px 8px;
+    border: none;
+    border-radius: 1px;
+}
