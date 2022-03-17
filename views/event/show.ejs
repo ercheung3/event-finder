@@ -8,6 +8,7 @@
 
             <section class="event-show-section">
                 <div class="event-show-container">
+                    <%if(typeof event !=="undefined"){%>
                     <h1 class="page-heading">
                         <%= event.name %>
                     </h1>
@@ -93,8 +94,49 @@
                             <button type="submit">Delete your event?</button>
                         </form>
                         <%}%>
+                        
+                        
+                    </div>
+                </section>
+                <%} else {%>
+
+                    <h1 class="page-heading">
+                        <%= results.name %>
+                    </h1>
+                    <div class="event-img-box">
+                        
+                            <!-- if img data exists, show -->
+                            <a href="/events/<%=results.id%>">
+                                <div class="event-img-bkg" style="background-image: url(<%=results.images[1].url%>)"
+                                    aria-label="Picture of <%=results.name%>"></div>
+                            </a>
+                            
+                    </div>
+                    <% if(results.dates.start.localDate){ %>
+                        <div class="show-text">
+                            <h3>When: </h3>
+                            <p class="event-date">
+                            <%=results.dates.start.localDate%>
+                            </p>
+                        </div>
+                        <% } %>
+                                <div class="show-text">
+                                    <h3>Where: </h3>
+                                    <p>
+                                        <%=results._embedded.venues[0].name%>>
+                                    </p>
+                                </div>
+                                <div class="show-text">
+                                    <h3>Get Tickets: </h3>
+                                    <a href="<%=results.url%>">
+                                        <%=`Get Tickets!`%>
+                                        <br>
+                                        <%=`${results.name} on TicketMaster!`%>
+                                    <a>
+                                </div>
+                                    
+                     <% } %>                   
                 </div>
-            </section>
 
     </body>
     <%- include ('../partials/footer') %>
