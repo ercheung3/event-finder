@@ -55,6 +55,9 @@ router.get("/", async (req, res) => {
       if (key === "name") querySearch["$text"] = { $search: req.query[key] };
       else querySearch[key] = req.query[key];
     }
+    //if key is not empty
+    //append key: req.query[key] to the object
+  }
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
 
