@@ -12,7 +12,7 @@
                     <a href="/events/new">Create one now!</a>
                     <% } else { %>
                         <!-- container for user to search for events -->
-                        <form class="event-search-form-container" method="POST">
+                        <form action="/events" class="event-search-form-container" method="GET">
                             <div class="event-search-form-div">
                                 <p>Search for an event:</p>
                             </div>
@@ -115,6 +115,7 @@
                                                                         <%=result.classifications[0].segment.name%>
                                                                     </li>
                                                                     <li>
+                                                                        <%=`${result.dates.start.localDate}`%>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -123,20 +124,6 @@
                                                                 <% } %>
                                                                     <%})%>
                             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </section>
                         <% } %>
             </div>
