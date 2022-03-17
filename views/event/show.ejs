@@ -29,38 +29,48 @@
                     <% if(event.date){ %>
                         <div class="show-text">
                             <h3>When: </h3>
-                            <p class="event-date"><%=event.date%></p>
-                        </div>
-                    <% } %>
-                    <% if(event.location){ %>
-                        <div class="show-text">
-                            <h3>Where: </h3>
-                            <p><%=event.location%></p>
-                        </div>
-                        <% } %>
-                        <% if(event.organization){ %>
-                            <div class="show-text">
-                                <h3>Organized By: </h3>
-                                <p><%=event.organization%></p>
-                            </div>
-                        <% } %>
-                        <% if(event.description){ %>
-                            <div class="show-text">
-                                <h3>Description: </h3>
-                                <p><%=event.description%></p>
-                            </div>
-                        <% } %>
-                        <% if(event.tag){ %>
-                            <div class="show-text">
-                                <p>Tags:</p>
-                                <p class="show-tag"><%=event.tag%></p>
-                            </div>
-                        <% } %>
-                        <div class="show-text">
-                            <p class="show-created-by">
-                                Created by: <%= event.user.displayname %></a>
+                            <p class="event-date">
+                                <%=event.date%>
                             </p>
                         </div>
+                        <% } %>
+                            <% if(event.location){ %>
+                                <div class="show-text">
+                                    <h3>Where: </h3>
+                                    <p>
+                                        <%=event.location%>
+                                    </p>
+                                </div>
+                                <% } %>
+                                    <% if(event.organization){ %>
+                                        <div class="show-text">
+                                            <h3>Organized By: </h3>
+                                            <p>
+                                                <%=event.organization%>
+                                            </p>
+                                        </div>
+                                        <% } %>
+                                            <% if(event.description){ %>
+                                                <div class="show-text">
+                                                    <h3>Description: </h3>
+                                                    <p>
+                                                        <%=event.description%>
+                                                    </p>
+                                                </div>
+                                                <% } %>
+                                                    <% if(event.tag){ %>
+                                                        <div class="show-text">
+                                                            <p>Tags:</p>
+                                                            <p class="show-tag">
+                                                                <%=event.tag%>
+                                                            </p>
+                                                        </div>
+                                                        <% } %>
+                                                            <div class="show-text">
+                                                                <p class="show-created-by">
+                                                                    Created by: <%= event.user.displayname %></a>
+                                                                </p>
+                                                            </div>
                 </div>
 
                 <div class="btn-container">
