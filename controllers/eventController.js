@@ -15,14 +15,23 @@ const auth = {
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
   const currId = req.session.userId;
-
+  //console.log("HELLO: " + (await Event.listIndexes()));
+  await Event.createIndexes({ name: "text", description: "text" });
+  const eventTest = await Event.find({ $text: { $search: "party" } });
+  eventTest.forEach((event) => {
+    console.log(event.name);
+  });
+  //Event.dropIndex();
   const querySearch = {};
   //const events = await Event.find();
   let events = await Event.find();
 
   for (const key in req.query) {
     console.log(key, req.query[key]);
-    if (req.query[key] != "") querySearch[key] = req.query[key];
+    if (req.query[key] != "") {
+      if (key === "name") querySearch["$text"] = { $search: req.query[key] };
+      else querySearch[key] = req.query[key];
+    }
     //if key is not empty
     //append key: req.query[key] to the object
   }
@@ -114,31 +123,28 @@ router.get("/new", isLoggedIn, (req, res) => {
 // /events/:id
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
-  
   const currId = req.session.userId;
-  if((req.params.id).length > 15){
+  if (req.params.id.length > 15) {
     const event = await Event.findById(req.params.id).populate("user");
-  res.render("event/show.ejs", {
-    event: event,
-    currId: currId,
-  });
-} else {
-  const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
-  await axios({
-    method: "get",
-    url: thisEvent,
-    async: true,
-    dataType: "json",
-  }).then((apires) => {
     res.render("event/show.ejs", {
-      results: apires.data,
+      event: event,
       currId: currId,
-    })
-  });
-
-};
+    });
+  } else {
+    const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`;
+    await axios({
+      method: "get",
+      url: thisEvent,
+      async: true,
+      dataType: "json",
+    }).then((apires) => {
+      res.render("event/show.ejs", {
+        results: apires.data,
+        currId: currId,
+      });
+    });
+  }
 });
-
 
 // CREATE: POST
 // /events

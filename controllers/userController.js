@@ -51,10 +51,10 @@ router.get("/", async (req, res) => {
 
   for (const key in req.query) {
     console.log(key, req.query[key]);
-    if (req.query[key] != "") querySearch[key] = req.query[key];
-    //if key is not empty
-    //append key: req.query[key] to the object
-  }
+    if (req.query[key] != "") {
+      if (key === "name") querySearch["$text"] = { $search: req.query[key] };
+      else querySearch[key] = req.query[key];
+    }
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
 

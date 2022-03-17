@@ -55,6 +55,7 @@ const eventSchema = new Schema(
 );
 // stretch goal - location nearest zip
 // stretch goal - age restriction
+eventSchema.index({ name: "text", description: "text" });
 
 const Event = mongoose.model("Event", eventSchema);
 
