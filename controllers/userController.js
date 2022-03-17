@@ -45,8 +45,19 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  //const user = await User.find();
-  const events = (await Event.find({ name: req.query.name })) || Event.find();
+  const querySearch = {};
+  //const events = await Event.find();
+  let events = await Event.find();
+
+  for (const key in req.query) {
+    console.log(key, req.query[key]);
+    if (req.query[key] != "") querySearch[key] = req.query[key];
+    //if key is not empty
+    //append key: req.query[key] to the object
+  }
+  if (Object.keys(querySearch).length > 0)
+    events = await Event.find(querySearch);
+
   const user = await User.findOne({ _id: req.session.userId });
   res.render("user/index.ejs", {
     user: user,
@@ -126,7 +137,7 @@ router.put("/:displayname", async (req, res) => {
       { displayname: req.params.displayname },
       req.body
     );
-    res.redirect(`/users/${req.params.displayname}`);
+    res.redirect(`/users`);
   } catch (err) {
     res.sendStatus(500);
   }
