@@ -33,7 +33,7 @@ if(d.getDate() < 10){
   //endDateTime=${exactString}$
   console.log('i am read')
   console.log(`bazinga ${exactString}`)
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=qvcGdc7RNhL7hYoctmdW7gKVBJ3HLAGz`
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_Key}`
   axios({
     method: 'get',
     url: apiUrl,
