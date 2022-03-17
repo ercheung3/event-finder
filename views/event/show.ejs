@@ -73,7 +73,6 @@
                                                                 </p>
                                                             </div>
                 </div>
-
                 <div class="btn-container">
                     <% if(event.likes.includes(currId)) { %>
                         <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
@@ -99,7 +98,6 @@
                     </div>
                 </section>
                 <%} else {%>
-
                     <h1 class="page-heading">
                         <%= results.name %>
                     </h1>
@@ -146,8 +144,6 @@
                                             <% } %>
                      <% } %>                   
                 </div>
-
     </body>
     <%- include ('../partials/footer') %>
-
 </html>
