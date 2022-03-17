@@ -19,19 +19,21 @@
 .btn-container.user {
     display: flex;
 }
-.user-btn.edit {
+.like-btn {
+    background-color: white;
+    padding: 8px 5px;
+    border: 1px solid #2fb4e9;
+    border-radius: 1px;
+}
+.edit {
     margin-right: 10px;
-    background-color: #2fb4e9;
+}
+.delete-btn, .delete-btn button {
+    background-color: rgb(155, 155, 155);
     padding: 5px 8px;
     border: none;
     border-radius: 1px;
 }
-.user-btn.delete {
-    margin-left: 10px;
-}
-.user-btn button {
-    background-color: rgb(180, 119, 119);
-    padding: 5px 8px;
-    border: none;
-    border-radius: 1px;
+.delete-btn:hover, .delete-btn button:hover {
+    cursor: pointer;
 }
