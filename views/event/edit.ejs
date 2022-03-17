@@ -24,13 +24,13 @@
                     <label for="image">Image URL:</label>
                     <input type="text" name="image" value="<%=event.image%>">
                     <label for="date">Date:</label>
-                    <input type="text" name="date" value="<%=event.date%>">
+                    <input type="datetime-local" name="date" value="<%=event.date%>">
                     <label for="organization">Organization:</label>
                     <input type="text" name="organization" value="<%=event.organization%>">
                     <label for="tag">Event Type:</label>
                     <div class="edit-event-drop">
                         <select name="tag">
-                            <option value="<%=event.tag%>">
+                            <option selected disabled hidden value="<%=event.tag%>">
                                 <%=event.tag%>
                             </option>
                             <!-- need to create a conditional to show all other tags that do not equal current tag? -->
