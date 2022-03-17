@@ -11,49 +11,54 @@
     </header>
 
     <% if(isLoggedIn){ %>
-        <h1>Welcome back <%= displayname %>!</h1>
-        <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
-        <h1>Here are all the events you are interested in:</h1>
-        <form action="/users">
-            <input type="text" name="name">
-            <button type="submit">Search for your events</button>
-            <% event.forEach((event)=>{ %>
-                <% console.log(currId) %>
-                    <% console.log(event) %>
-                        <% if(event.likes.includes(currId)) { %>
-                            <% console.log('you liked this') %>
-                                <div class="upcoming-event-box">
-                                    <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
-                                    <ul class="event-info-box">
-                                        <li>
-                                            <a href="/events/<%=event._id%>">
-                                                <%=event.name%>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <%=event.date%>
-                                        </li>
-                                        <li>
-                                            <%=event.description%>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <% } %>
-                                    <% }) %>
-        </form>
-        <!-- 
+        <main>
+            <div class="welcome">
+                <h1>Welcome back <%= displayname %>!</h1>
+                <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
+                <h3>Here are all the events you are interested in:</h3>
+                <form action="/users" class="search-event-form">
+                    <input type="text" name="name">
+                    <button type="submit" class="search-event-btn">Search for your events</button>
+                </form>
+            </div>
+        </main>
+        <% event.forEach((event)=>{ %>
+            <% console.log(currId) %>
+                <% console.log(event) %>
+                    <% if(event.likes.includes(currId)) { %>
+                        <% console.log('you liked this') %>
+                            <div class="upcoming-event-box">
+                                <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
+                                <ul class="event-info-box">
+                                    <li>
+                                        <a href="/events/<%=event._id%>">
+                                            <%=event.name%>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <%=event.date%>
+                                    </li>
+                                    <li>
+                                        <%=event.description%>
+                                    </li>
+                                </ul>
+                            </div>
+                            <% } %>
+                                <% }) %>
+                                    </form>
+                                    <!-- 
                 <% //user.forEach((user)=>{ %>
                 <a href="/users/<%=//event._id%>">
                     <%= //event.name %>
                 </a> 
                 <% //}) %> 
             -->
-        <% } else { %>
-            <a href="/users/login">Please log in</a>
-            <% } %>
+                                    <% } else { %>
+                                        <a href="/users/login">Please log in</a>
+                                        <% } %>
 
 
-                <%- include ('../partials/footer') %>
+                                            <%- include ('../partials/footer') %>
 
 </body>
 
