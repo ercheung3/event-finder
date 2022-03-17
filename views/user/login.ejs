@@ -6,31 +6,31 @@
 </head>
 
 <body>
-<header>
-    <%- include('../partials/header') %>
-</header>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
 
-<main>
-<div class="form">
-    <div class="login-heading">
-    <h2>Login</h2>
-    </div>
-    <form action="/users/login" class="actual-form" method="POST">
-        <div class="login-inputs">
-          <label for="username">Username:</label>
-          <input type="text" name="username" required>
-          <label for="password">Password:</label>
-          <input type="password" name="password">
+    <main>
+        <div class="form">
+            <div class="login-heading">
+                <h2>Login</h2>
+            </div>
+            <form action="/users/login" class="actual-form" method="POST">
+                <div class="login-inputs">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" name="password">
+                </div>
+                <div class="bottom-register">
+                    <button class="submit-btn" type="submit">Login</button>
+                    <p>Don't have an account? <a href="/users/new" class="register-link">Register</a></p>
+                </div>
+            </form>
         </div>
-        <div class="bottom-register">
-            <button class="submit-btn" type="submit">Login</button>
-            <p>Don't have an account? <a href="/users/new" class="register-link">Register</a></p>
-        </div>
-    </form>
-     </div>
-   </main>
-   
+    </main>
     <%- include ('../partials/footer') %>
 
 </body>
+
 </html>

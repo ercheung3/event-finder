@@ -43,6 +43,7 @@ header {
     padding: 8px 5px;
     border: 0;
     border-radius: 1px;
+    color: white;
 }
 .submit-btn:hover {
     background-color: #2fa6d4;
@@ -67,15 +68,16 @@ main {
 }
 .form {
     border: 1px solid black;
-    padding: 60px 200px;
-    margin-top: 100px;
+    padding: 100px 100px;
+    margin: 100px;
     background-color: #FAF9F6;
-    border-radius: 6px;
+    /* border-radius: 6px; */
 }
 .login-inputs {
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
+    gap: .5rem;
 }
 .bottom-register {
     display: flex;
