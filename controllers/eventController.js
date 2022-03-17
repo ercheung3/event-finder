@@ -115,13 +115,30 @@ router.get("/new", isLoggedIn, (req, res) => {
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
   const event = await Event.findById(req.params.id).populate("user");
-  console.log("SHOW EVENT: " + event);
+  const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
+  console.log("SHOW EVENT: " + thisEvent);
   const currId = req.session.userId;
+  if(event){
   res.render("event/show.ejs", {
     event: event,
     currId: currId,
   });
+} else {
+  axios({
+    method: "get",
+    url: thisEvent,
+    async: true,
+    dataType: "json",
+  }).then((apires) => {
+    res.render("event/show.ejs", {
+      results: apires,
+      currId: currId,
+    })
+  });
+
+};
 });
+
 
 // CREATE: POST
 // /events
