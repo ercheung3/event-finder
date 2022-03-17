@@ -5,118 +5,124 @@
 
     <body>
         <%- include('../partials/header') %>
-    <div class="index-page-content">
-        <h1 class="page-heading">Welcome to Event Palooza!</h1>
-        <% if(event.length===0) {%>
-            <h2 class="page-sub-heading">There are no events yet!</h2>
-            <a href="/events/new">Create one now!</a>
-            <% } else { %>
-                <!-- container for user to search for events -->
-                <form class="event-search-form-container" method="POST">
-                    <div class="event-search-form-div">
-                        <p>Search for an event:</p>
-                    </div>
-                    <!-- Event Name -->
-                    <div class="event-search-form-div">
-                        <label class="event-search label" for="name">Event Name</label>
-                        <div><input type="text" name="name"></div>
-                    </div>
-                    <!-- When (date) -->
-                    <div class="event-search-form-div">
-                        <label class="event-search label" for="date">When</label>
-                        <div>
-                            <p>(Date picker here)</p>
-                        </div>
-                    </div>
-                    <!-- What (event type dropdown menu) -->
-                    <div class="event-search-form-div">
-                        <label for="dropdown-event-tag">What</label>
-                        <div class="dropdown">
-                            <select name="tag" id="dropdown-event-tag">
-                                <option value="">--All Events--</option>
-                                <option value="Music">Music</option>
-                                <option value="Arts & Culture">Arts & Culture</option>
-                                <option value="Community Event">Community Event</option>
-                                <option value="Outdoor Recreation">Outdoor Recreation</option>
-                                <option value="Health/Fitness">Health/Fitness</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="event-search-form-div">
-                        <button class="submit-btn" type="submit">Find Events!</button>
-                    </div>
-                </form>
-                <!-- below shows all upcoming events -->
-                <section class="upcoming-events-section">
-                    <h2 class="page-sub-heading">Upcoming Events</h2>
-                    <p>Check out all the upcoming events here, or search for specific events above.</p>
-                    <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
-                    <div class="upcoming-events-grid-container">
-                        <% event.forEach((event)=>{ %>
-                            <% if(true){ %>
-                                <div class="upcoming-event-box">
-                                    <div class="event-img-box">
-                                        <% if(event.image){ %>
-                                            <!-- if img data exists, show -->
-                                            <a href="/events/<%=event._id%>">
-                                            <div class="event-img-bkg" style="background-image: url(<%=event.image%>)" aria-label="Picture of <%=event.name%>"></div>
-                                            </a>
-                                            <% }else { %>
-                                                <!-- if no img, show placeholder -->
-                                                <a href="/events/<%=event._id%>">
-                                                <img class="event-img-placeholder" src="../../img/event-img.png" alt="Calendar icon">
-                                                </a>
-                                            <% } %>
-                                            
-                                    </div>
-                                    <ul class="event-info-box">
-                                        <li>
-                                            <h4>
-                                                <a href="/events/<%=event._id%>">
-                                                    <%=event.name%>
-                                                </a>
-                                            </h4>
-                                        </li>
-                                        <li>
-                                            <%=event.date%>
-                                        </li>
-                                        <li>
-                                            <%=event.description%>
-                                        </li>
-                                    </ul>
+            <div class="index-page-content">
+                <h1 class="page-heading">Welcome to Event Palooza!</h1>
+                <% if(event.length===0) {%>
+                    <h2 class="page-sub-heading">There are no events yet!</h2>
+                    <a href="/events/new">Create one now!</a>
+                    <% } else { %>
+                        <!-- container for user to search for events -->
+                        <form class="event-search-form-container" method="POST">
+                            <div class="event-search-form-div">
+                                <p>Search for an event:</p>
+                            </div>
+                            <!-- Event Name -->
+                            <div class="event-search-form-div">
+                                <label class="event-search label" for="name">Event Name</label>
+                                <div><input type="text" name="name"></div>
+                            </div>
+                            <!-- When (date) -->
+                            <div class="event-search-form-div">
+                                <label class="event-search label" for="date">When</label>
+                                <div>
+                                    <p>(Date picker here)</p>
                                 </div>
-                            <% } %>
-                        <% }) %>
-                        <% let usedName = [] %>
-                        <% results.forEach(result => {%>
-                            <% if(!usedName.includes(result.name)) {%>
-                                <div class="upcoming-event-box">
-                                    <div class="event-img-box">
-                                            <a href="/events/<%=event._id%>">
-                                            <div class="event-img-bkg" style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center" aria-label="Picture of <%=event.name%>"></div>
-                                            </a>
-                                            
-                                    </div>
-                                    <ul class="event-info-box">
-                                        <li>
-                                            <h4>
-                                                <a href="/events/<%=event._id%>">
-                                                    <%=result.name%>
-                                                </a>
-                                            </h4>
-                                        </li>
-                                        <li>
-                                            <%=result.classifications[0].segment.name%>
-                                        </li>
-                                        <li>
-                                        </li>
-                                    </ul>
+                            </div>
+                            <!-- What (event type dropdown menu) -->
+                            <div class="event-search-form-div">
+                                <label for="dropdown-event-tag">What</label>
+                                <div class="dropdown">
+                                    <select name="tag" id="dropdown-event-tag">
+                                        <option value="">--All Events--</option>
+                                        <option value="Music">Music</option>
+                                        <option value="Arts & Culture">Arts & Culture</option>
+                                        <option value="Community Event">Community Event</option>
+                                        <option value="Outdoor Recreation">Outdoor Recreation</option>
+                                        <option value="Health/Fitness">Health/Fitness</option>
+                                    </select>
                                 </div>
-                            
-                            <%usedName.push(result.name)%>
-                            <% } %>
-                        <%})%>
-                    </div>
+                            </div>
+                            <div class="event-search-form-div">
+                                <button class="submit-btn" type="submit">Find Events!</button>
+                            </div>
+                        </form>
+                        <!-- below shows all upcoming events -->
+                        <section class="upcoming-events-section">
+                            <h2 class="page-sub-heading">Upcoming Events</h2>
+                            <p>Check out all the upcoming events here, or search for specific events above.</p>
+                            <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
+                            <div class="upcoming-events-grid-container">
+                                <% event.forEach((event)=>{ %>
+                                    <% if(true){ %>
+                                        <div class="upcoming-event-box">
+                                            <div class="event-img-box">
+                                                <% if(event.image){ %>
+                                                    <!-- if img data exists, show -->
+                                                    <a href="/events/<%=event._id%>">
+                                                        <div class="event-img-bkg"
+                                                            style="background-image: url(<%=event.image%>)"
+                                                            aria-label="Picture of <%=event.name%>"></div>
+                                                    </a>
+                                                    <% }else { %>
+                                                        <!-- if no img, show placeholder -->
+                                                        <a href="/events/<%=event._id%>">
+                                                            <img class="event-img-placeholder"
+                                                                src="../../img/event-img.png" alt="Calendar icon">
+                                                        </a>
+                                                        <% } %>
+
+                                            </div>
+                                            <ul class="event-info-box">
+                                                <li>
+                                                    <h4>
+                                                        <a href="/events/<%=event._id%>">
+                                                            <%=event.name%>
+                                                        </a>
+                                                    </h4>
+                                                </li>
+                                                <li>
+                                                    <%=event.date%>
+                                                </li>
+                                                <li>
+                                                    <%=event.description%>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <% } %>
+                                            <% }) %>
+                                                <% let usedName=[] %>
+                                                    <% results.forEach(result=> {%>
+                                                        <% if(!usedName.includes(result.name)) {%>
+                                                            <div class="upcoming-event-box">
+                                                                <div class="event-img-box">
+                                                                    <a href="/events/<%=event._id%>">
+                                                                        <div class="event-img-bkg"
+                                                                            style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center"
+                                                                            aria-label="Picture of <%=event.name%>">
+                                                                        </div>
+                                                                    </a>
+
+                                                                </div>
+                                                                <ul class="event-info-box">
+                                                                    <li>
+                                                                        <h4>
+                                                                            <a href="/events/<%=event._id%>">
+                                                                                <%=result.name%>
+                                                                            </a>
+                                                                        </h4>
+                                                                    </li>
+                                                                    <li>
+                                                                        <%=result.classifications[0].segment.name%>
+                                                                    </li>
+                                                                    <li>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <%usedName.push(result.name)%>
+                                                                <% } %>
+                                                                    <%})%>
+                            </div>
 
 
 
@@ -131,8 +137,10 @@
 
 
 
-                </section>
-            <% } %>
-    </div>
+                        </section>
+                        <% } %>
+            </div>
+    </body>
+    <%- include ('../partials/footer') %>
 
 </html>

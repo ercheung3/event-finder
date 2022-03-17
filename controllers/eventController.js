@@ -2,7 +2,7 @@ const Event = require("../models/event");
 require('dotenv').config()
 const express = require("express");
 const router = express.Router();
-const axios =require ('axios')
+const axios = require('axios')
 const isLoggedIn = require("../middleware/isLoggedIn");
 const e = require("express");
 const auth = {
@@ -17,40 +17,40 @@ router.get("/", async (req, res) => {
   const events = await Event.find();
   const currId = req.session.userId;
   //end date time
-  let d = new Date(); 
+  let d = new Date();
   let endDate = Number(d.getMonth() + 3)
-if(endDate < 10){
+  if (endDate < 10) {
     endDate = `0${endDate}`
-} else {
+  } else {
     endDate = endDate
-}
-if(d.getDate() < 10){
+  }
+  if (d.getDate() < 10) {
     var date1 = `0${d.getDate()}`
-} else {
+  } else {
     var date1 = d.getDate()
-}
+  }
   const exactString = `${d.getFullYear()}-${endDate}-${date1}T18:00:00Z`
   //endDateTime=${exactString}$
   console.log('i am read')
   console.log(`bazinga ${exactString}`)
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_Key}`
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_KEY}`
   axios({
     method: 'get',
     url: apiUrl,
     async: true,
     dataType: "json"
   })
-  .then(apires => {
-    res.render('event/index.ejs', {
-      results: apires.data._embedded.events,
-      event: events,
-      currId: currId,
+    .then(apires => {
+      res.render('event/index.ejs', {
+        results: apires.data._embedded.events,
+        event: events,
+        currId: currId,
 
+      })
     })
-  })
 
-    });
-  // Demo that res.locals is the same as the object passed to render
+});
+// Demo that res.locals is the same as the object passed to render
 
 router.get("/search", async (req, res) => {
   /*
