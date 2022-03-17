@@ -66,11 +66,11 @@
                 <div class="btn-container">
                     <% if(event.likes.includes(currId)) { %>
                         <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
-                            <button class="like-btn" type="submit">&#57378; Event Saved!</button>
+                            <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event Saved!</button>
                         </form>
                         <% } else { %>
                             <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
-                                <button class="like-btn" type="submit">&#57378; Save This Event!</button>
+                                <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i> Save This Event!</button>
                             </form>
                             <% } %>
                 </div>
