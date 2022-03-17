@@ -114,24 +114,24 @@ router.get("/new", isLoggedIn, (req, res) => {
 // /events/:id
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
-  const event = await Event.findById(req.params.id).populate("user");
-  const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
-  console.log("SHOW EVENT: " + thisEvent);
+  
   const currId = req.session.userId;
-  if(event){
+  if((req.params.id).length > 15){
+    const event = await Event.findById(req.params.id).populate("user");
   res.render("event/show.ejs", {
     event: event,
     currId: currId,
   });
 } else {
-  axios({
+  const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
+  await axios({
     method: "get",
     url: thisEvent,
     async: true,
     dataType: "json",
   }).then((apires) => {
     res.render("event/show.ejs", {
-      results: apires,
+      results: apires.data,
       currId: currId,
     })
   });
