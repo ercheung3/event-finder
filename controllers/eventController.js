@@ -198,6 +198,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 // /events/:id/like
 // like post with specific id
 router.put("/:id/like", async (req, res) => {
+  if((req.params.id).length > 15){
   try {
     //get specified event
     const event = await Event.findById(req.params.id);
@@ -207,11 +208,26 @@ router.put("/:id/like", async (req, res) => {
     } else {
       await event.updateOne({ $pull: { likes: req.session.userId } });
     }
-    res.redirect(`/events/${req.params.id}`);
-    //Add alert for adding like
   } catch (err) {
     console.log(err);
   }
+  }else {
+    try {
+     
+      const eventToCall = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
+      //check if post has been liked by user
+      const user = req.session.userId
+      if (!user.likes.includes(eventToCall)) {
+        await user.updateOne({ $push: { likes: eventToCall } });
+      } else {
+        await user.updateOne({ $pull: { likes: eventToCall } });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+    res.redirect(`/events/${req.params.id}`);
+    //Add alert for adding like
 });
 
 module.exports = router;
