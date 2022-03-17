@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include('../partials/head') %>
+<%- include('../partials/head') %>
 
-<body>
-    <%- include('../partials/header') %>
-
+    <body>
+        <%- include('../partials/header') %>
     <div class="index-page-content">
         <h1 class="page-heading">Welcome to Event Palooza!</h1>
         <% if(event.length===0) {%>
@@ -139,6 +138,4 @@
             <% } %>
     </div>
 
-</body>
-<%- include ('../partials/footer') %>
 </html>
