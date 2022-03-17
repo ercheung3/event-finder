@@ -1,4 +1,4 @@
-# event-finder
+# Event Palooza App
 The out of the world app will let you find fun and upcoming events near your area.
 
 ## What does the app do
@@ -12,29 +12,25 @@ if they like an event
 -- save event details into event model
 
 
-Potential API list
-Ticketmaster https://developer.ticketmaster.com/products-and-docs/apis/getting-started/
+## Technology Used
+- HTML/CSS
+- MongoDB Atlas, Mongoose
+- API Axios
+-
 
 ## Models
-
 Events
 - Name
 - Description
-- Image (url, STRETCH: let users upload image)
+- Image (url)
 - Date (M/D/Y H:M:S)
-- Host
+- User Creator
 - Organization (optional)
 - Tag (Types)
-- - {type: Music/Concert age: group}
-- - Community Event
-- - Outdoor Recreation
-- - Health/Fitness
-- - ETC..
-- Location: {metropolian areas first} STRETCH GOAL: nearest metropolian area from zip code
-- Age Restriction [0,21]
-- 
-STRETCH
-- eventURL (from API)
+-- Music/Concert
+-- Community Event
+-- Outdoor Recreation
+-- Health/Fitness
 
 Users
 - event_interested
@@ -43,7 +39,10 @@ Users
 - password
 
 STRETCH
-- zip_code (for API usage)
+- Event API using eventURL, starting location - Portland, OR. From [Ticketmaster API](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
+- Image upload for new event from file
+- Event type: Age Restriction [0,21]
+
 
 ## Task List
 FRONT END
@@ -54,12 +53,12 @@ BACK END
 - ERIC
 - BREVAN
 
-- Eric
--- 
-- Angela
--- 
-- Brevan
---
-- Pierre
---
+## User Flowchart
+![User flowchart for event app](./public/img/Event%20Palooza%20User%20Flow.pdf)
 
+
+## Wireframming
+
+
+## RESTful Routes
+![Restful Routes chart](./public/img/RESTful_Routes-event_palooza.pdf)
