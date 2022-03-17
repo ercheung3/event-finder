@@ -9,18 +9,29 @@
     <header>
         <%- include('../partials/header') %>
     </header>
-    <form action="/users/<%=user.displayname%>?_method=PUT" method="POST">
-        <!-- Match model form-->
-        <label for="username">Username:</label>
-        <input type="text" name="username" value="<%=user.username%>" readonly>
-        <label for="displayname">Display Name:</label>
-        <input type="text" name="displayname" value="<%=user.displayname%>">
-        <label for="firstname">First Name:</label>
-        <input type="text" name="firstname" value="<%=user.firstname%>">
-        <label for="lastname">Last Name:</label>
-        <input type="text" name="lastname" value="<%=user.lastname%>">
-        <button type="submit">Submit</button>
-    </form>
+    <main>
+        <div class="form">
+            <div class="login-heading">
+                <h2>Edit User</h2>
+            </div>
+            <form action="/users/<%=user.displayname%>?_method=PUT" method="POST">
+                <!--Match model form-->
+                <div class="login-inputs">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" value="<%=user.username%>" readonly>
+                    <label for="displayname">Display Name:</label>
+                    <input type="text" name="displayname" value="<%=user.displayname%>">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" name="firstname" value="<%=user.firstname%>">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" name="lastname" value="<%=user.lastname%>">
+                </div>
+                <div class="bottom-register">
+                    <button class="submit-btn" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
 
     <%- include ('../partials/footer') %>
 

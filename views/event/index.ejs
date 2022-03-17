@@ -5,6 +5,7 @@
 
     <body>
         <%- include('../partials/header') %>
+
             <div class="index-page-content">
                 <h1 class="page-heading">Welcome to Event Palooza!</h1>
                 <% if(event.length===0) {%>
@@ -12,7 +13,7 @@
                     <a href="/events/new">Create one now!</a>
                     <% } else { %>
                         <!-- container for user to search for events -->
-                        <form action="/events" class="event-search-form-container">
+                        <form class="event-search-form-container" method="POST">
                             <div class="event-search-form-div">
                                 <p>Search for an event:</p>
                             </div>
@@ -52,85 +53,76 @@
                             <p>Check out all the upcoming events here, or search for specific events above.</p>
                             <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
                             <div class="upcoming-events-grid-container">
-                                <%console.log(event)%>
-                                    <% event.forEach((event)=>{ %>
-                                        <% if(true){ %>
-                                            <div class="upcoming-event-box">
-                                                <div class="event-img-box">
-                                                    <% if(event.image){ %>
-                                                        <!-- if img data exists, show -->
+                                <% event.forEach((event)=>{ %>
+                                    <% if(true){ %>
+                                        <div class="upcoming-event-box">
+                                            <div class="event-img-box">
+                                                <% if(event.image){ %>
+                                                    <!-- if img data exists, show -->
+                                                    <a href="/events/<%=event._id%>">
+                                                        <div class="event-img-bkg"
+                                                            style="background-image: url(<%=event.image%>)"
+                                                            aria-label="Picture of <%=event.name%>"></div>
+                                                    </a>
+                                                    <% }else { %>
+                                                        <!-- if no img, show placeholder -->
                                                         <a href="/events/<%=event._id%>">
-                                                            <div class="event-img-bkg"
-                                                                style="background-image: url(<%=event.image%>)"
-                                                                aria-label="Picture of <%=event.name%>"></div>
+                                                            <img class="event-img-placeholder"
+                                                                src="../../img/event-img.png" alt="Calendar icon">
                                                         </a>
-                                                        <% }else { %>
-                                                            <!-- if no img, show placeholder -->
-                                                            <a href="/events/<%=event._id%>">
-                                                                <img class="event-img-placeholder"
-                                                                    src="../../img/event-img.png" alt="Calendar icon">
-                                                            </a>
-                                                            <% } %>
+                                                        <% } %>
 
-                                                </div>
-                                                <ul class="event-info-box">
-                                                    <li>
-                                                        <h4>
-                                                            <a href="/events/<%=event._id%>">
-                                                                <%=event.name%>
-                                                            </a>
-                                                        </h4>
-                                                    </li>
-                                                    <li>
-                                                        <%=event.date%>
-                                                    </li>
-                                                    <li>
-                                                        <%=event.description%>
-                                                    </li>
-                                                </ul>
                                             </div>
-                                            <% } %>
-                                                <% }) %>
-                                                    <% let usedName=[] %>
-                                                        <% results.forEach(result=> {%>
-                                                            <% if(!usedName.includes(result.name)) {%>
-                                                                <div class="upcoming-event-box">
-                                                                    <div class="event-img-box">
-                                                                        <a href="/events/<%=event._id%>">
-                                                                            <div class="event-img-bkg"
-                                                                                style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center"
-                                                                                aria-label="Picture of <%=event.name%>">
-                                                                            </div>
-                                                                        </a>
+                                            <ul class="event-info-box">
+                                                <li>
+                                                    <h4>
+                                                        <a href="/events/<%=event._id%>">
+                                                            <%=event.name%>
+                                                        </a>
+                                                    </h4>
+                                                </li>
+                                                <li>
+                                                    <%=event.date%>
+                                                </li>
+                                                <li>
+                                                    <%=event.description%>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <% } %>
+                                            <% }) %>
+                                                <% let usedName=[] %>
+                                                    <% results.forEach(result=> {%>
+                                                        <% if(!usedName.includes(result.name)) {%>
+                                                            <div class="upcoming-event-box">
+                                                                <div class="event-img-box">
+                                                                    <a href="/events/<%=event._id%>">
+                                                                        <div class="event-img-bkg"
+                                                                            style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center"
+                                                                            aria-label="Picture of <%=event.name%>">
+                                                                        </div>
+                                                                    </a>
 
-                                                                    </div>
-                                                                    <ul class="event-info-box">
-                                                                        <li>
-                                                                            <h4>
-                                                                                <a href="/events/<%=event._id%>">
-                                                                                    <%=result.name%>
-                                                                                </a>
-                                                                            </h4>
-                                                                        </li>
-                                                                        <li>
-                                                                            <%=result.classifications[0].segment.name%>
-                                                                        </li>
-                                                                        <li>
-                                                                        </li>
-                                                                    </ul>
                                                                 </div>
-                                                                <div
-                                                                    style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center">
-                                                                    <h1>
-                                                                        <%=result.name%>
-                                                                    </h1>
-                                                                    <p>
+                                                                <ul class="event-info-box">
+                                                                    <li>
+                                                                        <h4>
+                                                                            <a href="/events/<%=event._id%>">
+                                                                                <%=result.name%>
+                                                                            </a>
+                                                                        </h4>
+                                                                    </li>
+                                                                    <li>
                                                                         <%=result.classifications[0].segment.name%>
-                                                                    </p>
-                                                                </div>
-                                                                <%usedName.push(result.name)%>
-                                                                    <% } %>
-                                                                        <%})%>
+                                                                    </li>
+                                                                    <li>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <%usedName.push(result.name)%>
+                                                                <% } %>
+                                                                    <%})%>
                             </div>
 
 

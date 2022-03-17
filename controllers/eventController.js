@@ -40,9 +40,10 @@ router.get("/", async (req, res) => {
   }
   const exactString = `${d.getFullYear()}-${endDate}-${date1}T18:00:00Z`;
   //endDateTime=${exactString}$
+
   console.log("i am read");
   console.log(`bazinga ${exactString}`);
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=qvcGdc7RNhL7hYoctmdW7gKVBJ3HLAGz`;
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_Key}`;
   axios({
     method: "get",
     url: apiUrl,

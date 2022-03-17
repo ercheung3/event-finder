@@ -1,0 +1,41 @@
+.edit-event-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px black solid;
+    background-color: #FAF9F6;
+    padding: 80px;
+    margin: 50px;
+}
+
+.edit-event-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    gap: .5rem;
+}
+
+.edit-event-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.edit-event-btn {
+    width: 200px;
+    border: 0;
+    background-color: #2fb4e9;
+    padding: 8px 5px;
+    color: white;
+}
+
+.edit-event-btn:hover {
+    background-color: #2fa6d4;
+    cursor: pointer;
+}
+

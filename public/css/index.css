@@ -19,7 +19,7 @@
 .upcoming-events-grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 3rem;
     margin: 10px 0;
 }
 .upcoming-event-box {
@@ -27,6 +27,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     padding: 10px;
+    background-color: white;
+}
+.upcoming-event-box .event-img-box {
+    margin: 20px;
 }
 .event-img-bkg, .event-img-placeholder {
     height: 200px;
@@ -41,6 +45,14 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
+}
+.event-info-box li {
+    margin: 5px 0;
+}
+.event-date {
+    color: #2fa6d4;
+    font-style: italic;
 }
 .register-link, .new-link {
     color: blue;
