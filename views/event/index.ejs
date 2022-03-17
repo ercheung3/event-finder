@@ -95,7 +95,7 @@
                                                         <% if(!usedName.includes(result.name)) {%>
                                                             <div class="upcoming-event-box">
                                                                 <div class="event-img-box">
-                                                                    <a href="/events/<%=result._id%>">
+                                                                    <a href="/events/<%=result.id%>">
                                                                         <div class="event-img-bkg"
                                                                             style="background-image: url(<%=result.images[0].url%>); background-size: cover; background-position:center"
                                                                             aria-label="Picture of <%=event.name%>">
@@ -106,7 +106,7 @@
                                                                 <ul class="event-info-box">
                                                                     <li>
                                                                         <h4>
-                                                                            <a href="/events/<%=result._id%>">
+                                                                            <a href="/events/<%=result.id%>">
                                                                                 <%=result.name%>
                                                                             </a>
                                                                         </h4>
