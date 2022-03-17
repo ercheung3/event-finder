@@ -134,7 +134,16 @@
                                         <%=`${results.name} on TicketMaster!`%>
                                     <a>
                                 </div>
-                                    
+                                <div class="btn-container">
+                                    <% if(user.likes.includes(results.id)) { %>
+                                        <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
+                                            <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event Saved!</button>
+                                        </form>
+                                        <% } else { %>
+                                            <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
+                                                <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i> Save This Event!</button>
+                                            </form>
+                                            <% } %>
                      <% } %>                   
                 </div>
 

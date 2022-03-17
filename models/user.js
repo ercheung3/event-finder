@@ -8,6 +8,10 @@ const userSchema = new Schema(
     displayname: { type: String, unique: true },
     firstname: { type: String },
     lastname: { type: String },
+    likes: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );
