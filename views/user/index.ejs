@@ -23,42 +23,33 @@
             </div>
         </main>
         <% event.forEach((event)=>{ %>
-            <% console.log(currId) %>
-                <% console.log(event) %>
-                    <% if(event.likes.includes(currId)) { %>
-                        <% console.log('you liked this') %>
-                            <div class="upcoming-event-box">
-                                <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
-                                <ul class="event-info-box">
-                                    <li>
-                                        <a href="/events/<%=event._id%>">
-                                            <%=event.name%>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <%=event.date%>
-                                    </li>
-                                    <li>
-                                        <%=event.description%>
-                                    </li>
-                                </ul>
-                            </div>
+            <% if(event.likes.includes(currId)) { %>
+                <div class="upcoming-event-box">
+                    <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
+                    <ul class="event-info-box">
+                        <li>
+                            <a href="/events/<%=event._id%>">
+                                <%=event.name%>
+                            </a>
+                        </li>
+                        <li>
+                            <%=event.date%>
+                        </li>
+                        <li>
+                            <%=event.description%>
+                        </li>
+                    </ul>
+                </div>
+                <% } %>
+                    <% }) %>
+                        </form>
+
+                        <% } else { %>
+                            <a href="/users/login">Please log in</a>
                             <% } %>
-                                <% }) %>
-                                    </form>
-                                    <!-- 
-                <% //user.forEach((user)=>{ %>
-                <a href="/users/<%=//event._id%>">
-                    <%= //event.name %>
-                </a> 
-                <% //}) %> 
-            -->
-                                    <% } else { %>
-                                        <a href="/users/login">Please log in</a>
-                                        <% } %>
 
 
-                                            <%- include ('../partials/footer') %>
+                                <%- include ('../partials/footer') %>
 
 </body>
 
