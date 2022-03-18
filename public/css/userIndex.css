@@ -45,3 +45,6 @@
 .page-sub-heading.saved, .no-saved-events-box {
     text-align: center;
 }
+.upcoming-events-grid-container.saved {
+    grid-template-columns: 1fr;
+}
