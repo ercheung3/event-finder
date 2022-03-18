@@ -191,14 +191,28 @@ router.put("/:id/like", async (req, res) => {
   } else {
     try {
       const eventId = req.params.id;
+      const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
       //check if post has been liked by user
       const user = await User.findById(req.session.userId);
-      if (!user.likes.includes(eventId)) {
-        await user.updateOne({ $push: { likes: eventId } });
-      } else {
-        await user.updateOne({ $pull: { likes: eventId } });
-      }
-      console.log("I pushed api url into user likes");
+      let newLike = {}
+        await axios({
+          method: "get",
+          url: thisEvent,
+          async: true,
+          dataType: "json",
+        }).then ((apires) => {
+          
+         newLike = {
+            name: `${apires.data.name}`,
+            url: `${apires.data.url}`,
+            venue: `${apires.data._embedded.venues[0].name}`,
+            date: `${apires.data.dates.start.localDate}`,
+            img: `${apires.data.images[0].url}`,
+          }
+          console.log(newLike)
+        });
+        
+        await user.updateOne({ $push: { likes: newLike } });
     } catch (err) {
       console.log(err);
     }

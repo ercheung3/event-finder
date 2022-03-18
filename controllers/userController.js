@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Event = require("../models/event");
 const axios = require("axios");
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -44,26 +45,8 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
-async function loopandrender(newArr, arr) {
-  for (let like of arr) {
-    await axios({
-      method: "get",
-      url: like,
-      async: true,
-      dataType: "json",
-    }).then((apires) => {
-      let dataObject = {
-        name: apires.data.name,
-        venue: apires.data._embedded.venues[0].name,
-        date: apires.data.dates.start.localDate,
-        url: apires.data.url,
-        img: apires.data.images[0].url,
-        id: apires.data.id,
-      };
-      newArr.push(dataObject);
-    });
-  }
-}
+
+
 router.get("/", async (req, res) => {
   const querySearch = {};
 
@@ -93,13 +76,13 @@ router.get("/", async (req, res) => {
 
   const user = await User.findOne({ _id: req.session.userId });
   console.log(`likes =${user.likes}`);
-  let apiContainer = [];
-  loopandrender(apiContainer, user.likes);
+  
+  
   console.log(apiContainer);
   res.render("user/index.ejs", {
     user: user,
     event: events,
-    apiLikes: apiContainer,
+    apiLikes: user.likes,
     currId: req.session.userId,
   });
 });
