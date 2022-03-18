@@ -193,6 +193,7 @@ router.put("/:id/like", async (req, res) => {
         }).then ((apires) => {
           
          newLike = {
+            id: `${req.params.id}`,
             name: `${apires.data.name}`,
             url: `${apires.data.url}`,
             venue: `${apires.data._embedded.venues[0].name}`,
