@@ -119,13 +119,20 @@
                                                                     </li>
                                                                     <li>
                                                                         <% let eventDate=new
-                                                                            Date(result.dates.start.localDate); %>
-                                                                            <% let options={ dateStyle: 'long' ,
-                                                                                timeStyle: 'long' } %>
-                                                                                <% let formattedDate=new
-                                                                                    Intl.DateTimeFormat('en-US',
-                                                                                    options).format(eventDate); %>
-                                                                                    <%=`${formattedDate}`%>
+                                                                            Date(result.dates.start.localDate) %>
+                                                                            <% let options={dateStyle: 'long' } %>
+                                                                                <% if(result.dates.start.dateTime) {%>
+                                                                                    <% eventDate=new
+                                                                                        Date(result.dates.start.dateTime);
+                                                                                        %>
+                                                                                        <% options["timeStyle"]='long'
+                                                                                            %>
+                                                                                            <% } %>
+                                                                                                <% let formattedDate=new
+                                                                                                    Intl.DateTimeFormat('en-US',
+                                                                                                    options).format(eventDate);
+                                                                                                    %>
+                                                                                                    <%=`${formattedDate}`%>
                                                                     </li>
                                                                 </ul>
                                                             </div>
