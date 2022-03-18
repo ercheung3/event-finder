@@ -28,6 +28,9 @@
 .like-btn:hover {
     cursor: pointer;
 }
+.fa-heart {
+    color: #2fb4e9;
+}
 .edit {
     margin-right: 10px;
 }
