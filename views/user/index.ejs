@@ -39,24 +39,42 @@
                 </div>
                 <% } %>
                     <% }) %>
+        <% let usedName=[] %>
             <% apiLikes.forEach((like)=>{ %>
+                <% if(!usedName.includes(like.name)) {%>
+                    <% console.log(`new item ${like.name}`) %>
                 <div class="upcoming-event-box">
-                    <img src="like.img"  class="event-img">
+                    <img src="<%=like.img%>"  class="event-img">
                     <ul class="event-info-box">
                         <li>
-                            <a href="/events/<%=event.id%>">
+                            <% if(typeof like.id !== "undefined") {%>
+                            <a href="/events/<%=like.id%>">
+                               <% if(typeof like.name !== "undefined") {%>
                                 <%=like.name%>
+                                <% } %>
                             </a>
+                            <% } else {%>
+                                <a>
+                                    <% if(typeof like.name !== "undefined") {%>
+                                     <%=like.name%>
+                                     <% } %>
+                                 </a>
+                                 <% } %>
                         </li>
                         <li>
+                            <% if(typeof like.date !== "undefined") {%>
                             <%=like.date%>
+                            <% } %>
                         </li>
                         <li>
+                            <% if(typeof like.venue !== "undefined") { %>
                             <%=like.venue%>
+                            <% } %>
                         </li>
                     </ul>
                 </div>
-            
+                <% if(typeof like.name !== "undefined") {usedName.push(like.name)} %>
+            <% } %>
             <% }) %>
                         
                             
