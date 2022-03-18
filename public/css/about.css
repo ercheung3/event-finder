@@ -1,0 +1,31 @@
+.portrait {
+    width: 400px;
+}
+.about-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+.backend-devs {
+    display: flex;
+    justify-content: space-around;
+}
+.frontEnd-devs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4rem;
+}
+
+.about-container {
+    background-color: #FAF9F6;
+    padding: 40px;
+    margin: 40px;
+}
+
+.p-container {
+    max-width: 300px;
+    padding: 5px;
+    
+}
