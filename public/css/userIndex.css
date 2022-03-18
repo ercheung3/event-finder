@@ -38,3 +38,10 @@
     color: #2fa6d4;
     cursor: pointer;
 }
+
+.search-box {
+    margin-top: 20px;
+}
+.page-sub-heading.saved, .no-saved-events-box {
+    text-align: center;
+}

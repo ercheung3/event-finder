@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <%- include('../partials/head') %>
-</head>
+<%- include('../partials/head') %>
 
-<body>
-    <header>
+    <body>
         <%- include('../partials/header') %>
-    </header>
+
 
     <% if(isLoggedIn){ %>
         <main>
@@ -66,13 +63,64 @@
                               
                         </form>
 
-                        <% } else { %>
-                            <a href="/users/login">Please log in</a>
-                            <% } %>
-
-
-                                <%- include ('../partials/footer') %>
-
-</body>
+                <!-- conditional for showing saved events: -->
+                <% if(event.some((event)=> event.likes.includes(currId))) { %>
+                    <section class="upcoming-events-section">
+                        <!-- this heading cant go below the forEach otherwise it repeats -->
+                        <h2 class="page-sub-heading saved">Here are all the events you are interested in:</h2>
+                        <div class="upcoming-events-grid-container">
+                            <% event.forEach((event)=>{ %>
+                                <% if(event.likes.includes(currId)) { %>
+                                    <div class="upcoming-event-box">
+                                        <div class="event-img-box">
+                                            <% if(event.image){ %>
+                                                <!-- if img data exists, show -->
+                                                <a href="/events/<%=event._id%>">
+                                                    <div class="event-img-bkg"
+                                                        style="background-image: url(<%=event.image%>)"
+                                                        aria-label="Picture of <%=event.name%>"></div>
+                                                </a>
+                                                <% }else { %>
+                                                    <!-- if no img, show placeholder -->
+                                                    <a href="/events/<%=event._id%>">
+                                                        <img class="event-img-placeholder" src="../../img/event-img.png"
+                                                            alt="Calendar icon">
+                                                    </a>
+                                                    <% } %>
+                                        </div>
+                                        <ul class="event-info-box">
+                                            <li>
+                                                <h4>
+                                                    <a href="/events/<%=event._id%>">
+                                                        <%=event.name%>
+                                                    </a>
+                                                </h4>
+                                            </li>
+                                            <li>
+                                                <%=event.date%>
+                                            </li>
+                                            <li>
+                                                <%=event.description%>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <% } %>
+                                        <% }) %>
+                        </div>
+                    </section>
+                    <% }else { %>
+                        <!-- need to add conditional for # of saved events -->
+                        <!-- conditional for if no saved events show: -->
+                        <div class="no-saved-events-box">
+                            <h2 class="page-sub-heading">Looks like you don't have any events saved yet!</h2>
+                            <p><a class="new-link" href="/events">Find an event here</a> and add it to your saved!</p>
+                        </div>
+                        <% } %>
+                            
+                                <% } else { %>
+                                    <a class="new-link" href="/users/login">Please log in</a>
+                                    <% } %>
+    </body>
+    <%- include ('../partials/footer') %>
 
 </html>
