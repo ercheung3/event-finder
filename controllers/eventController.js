@@ -73,11 +73,11 @@ router.get("/", async (req, res) => {
     async: true,
     dataType: "json",
   }).then((apires) => {
-    let wantedData = ""
-    if(apires.data.page.totalElements !== 0){
-      console.log('i exist')
-      wantedData = apires.data._embedded.events
-    } 
+    let wantedData = "";
+    if (apires.data.page.totalElements !== 0) {
+      console.log("i exist");
+      wantedData = apires.data._embedded.events;
+    }
     res.render("event/index.ejs", {
       results: wantedData,
       event: events,
