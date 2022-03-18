@@ -39,7 +39,6 @@ router.get("/", async (req, res) => {
     //append key: req.query[key] to the object
   }
 
-
   //Will use querySearch if there is a query
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
@@ -80,9 +79,8 @@ router.get("/about", (req, res) => {
   const currId = req.session.userId;
   res.render("event/about.ejs", {
     currId: currId,
-  })
-})
-
+  });
+});
 
 // NEW: GET
 // /events/new
@@ -127,10 +125,15 @@ router.get("/:id", async (req, res) => {
 // /events
 // Creates an actual event, then...?
 router.post("/", isLoggedIn, async (req, res) => {
-  req.body.user = req.session.userId;
-  const newevent = await Event.create(req.body);
-  console.log(newevent);
-  res.redirect("/events");
+  try {
+    req.body.user = req.session.userId;
+    console.log("DATE: " + req.body.date);
+    const newevent = await Event.create(req.body);
+    console.log(newevent);
+    res.redirect("/events");
+  } catch (err) {
+    res.redirect("/events/new");
+  }
 });
 
 // EDIT: GET
@@ -171,6 +174,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
     res.sendStatus(500);
   }
 });
+
 //like: put
 // /events/:id/like
 // like post with specific id
@@ -191,28 +195,27 @@ router.put("/:id/like", async (req, res) => {
   } else {
     try {
       const eventId = req.params.id;
-      const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
+      const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`;
       //check if post has been liked by user
       const user = await User.findById(req.session.userId);
-      let newLike = {}
-        await axios({
-          method: "get",
-          url: thisEvent,
-          async: true,
-          dataType: "json",
-        }).then ((apires) => {
-          
-         newLike = {
-            name: `${apires.data.name}`,
-            url: `${apires.data.url}`,
-            venue: `${apires.data._embedded.venues[0].name}`,
-            date: `${apires.data.dates.start.localDate}`,
-            img: `${apires.data.images[0].url}`,
-          }
-          console.log(newLike)
-        });
-        
-        await user.updateOne({ $push: { likes: newLike } });
+      let newLike = {};
+      await axios({
+        method: "get",
+        url: thisEvent,
+        async: true,
+        dataType: "json",
+      }).then((apires) => {
+        newLike = {
+          name: `${apires.data.name}`,
+          url: `${apires.data.url}`,
+          venue: `${apires.data._embedded.venues[0].name}`,
+          date: `${apires.data.dates.start.localDate}`,
+          img: `${apires.data.images[0].url}`,
+        };
+        console.log(newLike);
+      });
+
+      await user.updateOne({ $push: { likes: newLike } });
     } catch (err) {
       console.log(err);
     }
