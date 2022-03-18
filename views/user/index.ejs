@@ -42,6 +42,28 @@
                 </div>
                 <% } %>
                     <% }) %>
+            <% apiLikes.forEach((like)=>{ %>
+                <div class="upcoming-event-box">
+                    <img src="like.img"  class="event-img">
+                    <ul class="event-info-box">
+                        <li>
+                            <a href="/events/<%=event.id%>">
+                                <%=like.name%>
+                            </a>
+                        </li>
+                        <li>
+                            <%=like.date%>
+                        </li>
+                        <li>
+                            <%=like.venue%>
+                        </li>
+                    </ul>
+                </div>
+            
+            <% }) %>
+                        
+                            
+                              
                         </form>
 
                         <% } else { %>

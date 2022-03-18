@@ -16,26 +16,30 @@ const auth = {
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
   const currId = req.session.userId;
-  //console.log("HELLO: " + (await Event.listIndexes()));
-  await Event.createIndexes({ name: "text", description: "text" });
-  const eventTest = await Event.find({ $text: { $search: "party" } });
-  eventTest.forEach((event) => {
-    console.log(event.name);
-  });
-  //Event.dropIndex();
+
   const querySearch = {};
-  //const events = await Event.find();
+
   let events = await Event.find();
 
+  //Functionality for query search
   for (const key in req.query) {
-    console.log(key, req.query[key]);
     if (req.query[key] != "") {
+      //Use index provided by mongodb to search in name and description
       if (key === "name") querySearch["$text"] = { $search: req.query[key] };
-      else querySearch[key] = req.query[key];
+      else if (key === "date") {
+        //Format the Date from HTML5 form to Date Schema
+        //YYYY-MM-DDTHH:MM:SS.000Z
+        let formatDate = req.query[key].toString() + ":00.000Z";
+        const formattedDate = new Date(formatDate);
+        //Checks for any date later.
+        querySearch[key] = { $gte: formattedDate };
+      }  else querySearch[key] = req.query[key];
     }
     //if key is not empty
     //append key: req.query[key] to the object
   }
+
+  //Will use querySearch if there is a query
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
 
@@ -70,42 +74,7 @@ router.get("/", async (req, res) => {
 });
 // Demo that res.locals is the same as the object passed to render
 
-router.get("/search", async (req, res) => {
-  /*
-  Search query: name: Graduation tag: Music
-  
-  req.query.name NOT EMPTY
-  req.query.tag NOT EMPTY
-  req.query.date EMPTY
-  
-  const querySearch = [];
-  console.log(req.query.name);
-  console.log("REQ NAME: " + req.query.name == false);
-  if (req.query.name) querySearch.push({ name: req.query.name });
-  //if(req.query.date) STRETCH FOR DATE SEARCH
-  if (req.query.tag) querySearch.push({ tag: req.query.tag });
-  if (req.query.location) querySearch.push({ location: req.query.location });
 
-  let events = null;
-  console.log(querySearch);
-  if (querySearch.length == 0) {
-    console.log("NO SEARCH");
-    //ALL EVENTS
-    events = await Event.find();
-  } else {
-    events = await Event.find({
-      $and: querySearch,
-    });
-  }
-*/
-  console.log(req.query);
-  const currId = req.session.userId;
-  const events = await Event.find(req.query);
-  res.render("event/search.ejs", {
-    events: events,
-    currId: currId,
-  });
-});
 
 // NEW: GET
 // /events/new
@@ -199,22 +168,21 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 // /events/:id/like
 // like post with specific id
 router.put("/:id/like", async (req, res) => {
-  if((req.params.id).length > 15){
-  try {
-    //get specified event
-    const event = await Event.findById(req.params.id);
-    //check if post has been liked by user
-    if (!event.likes.includes(req.session.userId)) {
-      await event.updateOne({ $push: { likes: req.session.userId } });
-    } else {
-      await event.updateOne({ $pull: { likes: req.session.userId } });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-  }else {
+  if (req.params.id.length > 15) {
     try {
-     
+      //get specified event
+      const event = await Event.findById(req.params.id);
+      //check if post has been liked by user
+      if (!event.likes.includes(req.session.userId)) {
+        await event.updateOne({ $push: { likes: req.session.userId } });
+      } else {
+        await event.updateOne({ $pull: { likes: req.session.userId } });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
       const eventId = req.params.id
       //check if post has been liked by user
       const user = await User.findById(req.session.userId)
