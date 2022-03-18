@@ -36,6 +36,7 @@ const eventSchema = new Schema(
     tag: {
       type: String,
       enum: [
+        "",
         "Music",
         "Community Event",
         "Outdoor Recreation",

@@ -80,7 +80,11 @@
                                                     </h4>
                                                 </li>
                                                 <li>
-                                                    <%=event.date%>
+                                                    <% let eventDate=new Date(event.date); %>
+                                                        <% let options={ dateStyle: 'long' , timeStyle: 'long' } %>
+                                                            <% let formattedDate=new Intl.DateTimeFormat('en-US',
+                                                                options).format(eventDate); %>
+                                                                <%=`${formattedDate}`%>
                                                 </li>
                                                 <li>
                                                     <%=event.description%>
@@ -114,7 +118,15 @@
                                                                         <%=result.classifications[0].segment.name%>
                                                                     </li>
                                                                     <li>
-                                                                        <%=`${result.dates.start.localDate}`%>
+                                                                        <% let eventDate=new
+                                                                            Date(result.dates.start.localDate); %>
+                                                                            <% let options={ dateStyle: 'long' ,
+                                                                                timeStyle: 'long' } %>
+                                                                                <% let formattedDate=new
+                                                                                    Intl.DateTimeFormat('en-US',
+                                                                                    options).format(eventDate); %>
+                                                                                    <%=`${formattedDate}`%>
+
                                                                     </li>
                                                                 </ul>
                                                             </div>
