@@ -39,6 +39,7 @@ router.get("/", async (req, res) => {
     //append key: req.query[key] to the object
   }
 
+
   //Will use querySearch if there is a query
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
@@ -73,6 +74,15 @@ router.get("/", async (req, res) => {
   });
 });
 // Demo that res.locals is the same as the object passed to render
+
+// About Page
+router.get("/about", (req, res) => {
+  const currId = req.session.userId;
+  res.render("event/about.ejs", {
+    currId: currId,
+  })
+})
+
 
 // NEW: GET
 // /events/new

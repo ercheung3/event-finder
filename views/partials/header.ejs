@@ -6,12 +6,12 @@
       <% if(currId){ %>
         <!-- conditional, if user IS logged in show: -->
         <a href="/users">Home</a>
-        <a href="#">About</a>
+        <a href="/events/about">About</a>
         <a href="/users/<%=displayname%>/edit">My Account</a>
         <button class="submit-btn"><a href="/users/logout">Log Out</a></button>
         <% }else { %>
           <!-- if user is NOT logged in show: -->
-          <a href="#">About</a>
+          <a href="/about">About</a>
           <a href="/users/login">Log In</a>
           <button class="submit-btn"><a href="/users/new">Sign Up</a></button>
           <% } %>
