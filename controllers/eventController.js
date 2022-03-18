@@ -11,12 +11,22 @@ const auth = {
     "x-rapidapi-key": process.env.API_KEY,
   },
 };
+let currId
+let user
+async function checkId(){
+if (res.locals.userId){
+  currId = req.session.userId
+  user = await User.findById(req.session.userId)
+} else {
+  currId = null
+  user = null
+}
+}
+checkId
 // INDEX: GET
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
-  const currId = req.session.userId;
-
   const querySearch = {};
   let apiSearch = "";
   let events = await Event.find();
@@ -89,7 +99,6 @@ router.get("/", async (req, res) => {
 
 // About Page
 router.get("/about", (req, res) => {
-  const currId = req.session.isLoggedIn;
   res.render("event/about.ejs", {
     currId: currId,
   });
@@ -99,7 +108,6 @@ router.get("/about", (req, res) => {
 // /events/new
 // Shows a form to create a new event
 router.get("/new", isLoggedIn, (req, res) => {
-  const currId = req.session.userId;
   res.render("event/new.ejs", {
     currId: currId,
   });
@@ -108,9 +116,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 // SHOW: GET
 // /events/:id
 // Shows a page displaying one event
-router.get("/:id", isLoggedIn, async (req, res) => {
-  const currId = req.session.userId;
-  const user = await User.findById(req.session.userId);
+router.get("/:id", async (req, res) => {
   if (req.params.id.length > 15) {
     const event = await Event.findById(req.params.id).populate("user");
     res.render("event/show.ejs", {
@@ -137,7 +143,7 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 // CREATE: POST
 // /events
 // Creates an actual event, then...?
-router.post("/", isLoggedIn, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     req.body.user = req.session.userId;
     console.log("DATE: " + req.body.date);
@@ -168,7 +174,7 @@ router.get("/:id/edit", isLoggedIn, async (req, res) => {
 // UPDATE: PUT
 // /events/:id
 // UPDATE THE event WITH THE SPECIFIC ID
-router.put("/:id", isLoggedIn, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     await Event.findByIdAndUpdate(req.params.id, req.body);
     res.redirect(`/events/${req.params.id}`);
@@ -191,8 +197,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 //like: put
 // /events/:id/like
 // like post with specific id
-router.put("/:id/like", isLoggedIn, async (req, res) => {
-  const user = await User.findById(req.session.userId);
+router.put("/:id/like", async (req, res) => {
   if (req.params.id.length > 15) {
     try {
       //get specified event

@@ -74,6 +74,7 @@
                                                                 </div>
                 </div>
                 <div class="btn-container">
+                    <% if(currid) {%>
                     <% if(event.likes.includes(currId)) { %>
                         <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
                             <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event
@@ -98,6 +99,7 @@
 
                 </div>
             </section>
+            <% } %>
             <%} else {%>
                 <section class="event-show-section">
                     <h1 class="page-heading">
@@ -138,6 +140,7 @@
                                         <%=`${results.name} on TicketMaster!`%>
                                             <a>
                             </div>
+                            <% if (currId) {%>
                             <div class="btn-container">
                                 <% if(user.likes.filter(x => x.id === `${results.id}`).length > 0) { %>
                                     <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
@@ -149,6 +152,7 @@
                                             <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i>
                                                 Save This Event!</button>
                                         </form>
+                                        <% } %>
                                         <% } %>
                                             <% } %>
                             </div>
