@@ -54,11 +54,10 @@ BACK END
 - BREVAN
 
 ## User Flowchart
-![User flowchart for event app](./public/img/Event%20Palooza%20User%20Flow.pdf)
-
+![User flowchart for even app](https://github.com/ercheung3/event-finder/blob/main/public/img/Event%20Palooza%20User%20Flow.pdf?raw=true)
 
 ## Wireframming
 
 
 ## RESTful Routes
-![Restful Routes chart](./public/img/RESTful_Routes-event_palooza.pdf)
+![Restful Route Chart](https://github.com/ercheung3/event-finder/blob/main/public/img/RESTful_Routes-event_palooza.pdf?raw=true)

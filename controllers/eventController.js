@@ -5,6 +5,7 @@ const router = express.Router();
 const axios = require("axios");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const e = require("express");
+const User = require("../models/user");
 const auth = {
   header: {
     "x-rapidapi-key": process.env.API_KEY,
@@ -15,14 +16,23 @@ const auth = {
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
   const currId = req.session.userId;
-
+  //console.log("HELLO: " + (await Event.listIndexes()));
+  await Event.createIndexes({ name: "text", description: "text" });
+  const eventTest = await Event.find({ $text: { $search: "party" } });
+  eventTest.forEach((event) => {
+    console.log(event.name);
+  });
+  //Event.dropIndex();
   const querySearch = {};
   //const events = await Event.find();
   let events = await Event.find();
 
   for (const key in req.query) {
     console.log(key, req.query[key]);
-    if (req.query[key] != "") querySearch[key] = req.query[key];
+    if (req.query[key] != "") {
+      if (key === "name") querySearch["$text"] = { $search: req.query[key] };
+      else querySearch[key] = req.query[key];
+    }
     //if key is not empty
     //append key: req.query[key] to the object
   }
@@ -44,8 +54,6 @@ router.get("/", async (req, res) => {
   }
   const exactString = `${d.getFullYear()}-${endDate}-${date1}T18:00:00Z`;
   //endDateTime=${exactString}$
-  console.log("i am read");
-  console.log(`bazinga ${exactString}`);
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_KEY}`;
   axios({
     method: "get",
@@ -93,7 +101,6 @@ router.get("/search", async (req, res) => {
   console.log(req.query);
   const currId = req.session.userId;
   const events = await Event.find(req.query);
-  console.log(events);
   res.render("event/search.ejs", {
     events: events,
     currId: currId,
@@ -114,31 +121,31 @@ router.get("/new", isLoggedIn, (req, res) => {
 // /events/:id
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
-  
   const currId = req.session.userId;
-  if((req.params.id).length > 15){
+  const user = await User.findById(req.session.userId)
+  if (req.params.id.length > 15) {
     const event = await Event.findById(req.params.id).populate("user");
-  res.render("event/show.ejs", {
-    event: event,
-    currId: currId,
-  });
-} else {
-  const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`
-  await axios({
-    method: "get",
-    url: thisEvent,
-    async: true,
-    dataType: "json",
-  }).then((apires) => {
     res.render("event/show.ejs", {
-      results: apires.data,
+      event: event,
       currId: currId,
-    })
-  });
-
-};
+    });
+  } else {
+    const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`;
+    await axios({
+      method: "get",
+      url: thisEvent,
+      async: true,
+      dataType: "json",
+    }).then((apires) => {
+      
+      res.render("event/show.ejs", {
+        results: apires.data,
+        currId: currId,
+        user: user
+      });
+    });
+  }
 });
-
 
 // CREATE: POST
 // /events
@@ -192,6 +199,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 // /events/:id/like
 // like post with specific id
 router.put("/:id/like", async (req, res) => {
+  if((req.params.id).length > 15){
   try {
     //get specified event
     const event = await Event.findById(req.params.id);
@@ -201,11 +209,27 @@ router.put("/:id/like", async (req, res) => {
     } else {
       await event.updateOne({ $pull: { likes: req.session.userId } });
     }
-    res.redirect(`/events/${req.params.id}`);
-    //Add alert for adding like
   } catch (err) {
     console.log(err);
   }
+  }else {
+    try {
+     
+      const eventId = req.params.id
+      //check if post has been liked by user
+      const user = await User.findById(req.session.userId)
+      if (!user.likes.includes(eventId)) {
+        await user.updateOne({ $push: { likes: eventId } });
+      } else {
+        await user.updateOne({ $pull: { likes: eventId } });
+      }
+      console.log("I pushed api url into user likes")
+    } catch (err) {
+      console.log(err);
+    }
+  }
+    res.redirect(`/events/${req.params.id}`);
+    //Add alert for adding like
 });
 
 module.exports = router;
