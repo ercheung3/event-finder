@@ -66,17 +66,31 @@ async function loopandrender(newArr, arr){
 }
 router.get("/", async (req, res) => {
   const querySearch = {};
-  //const events = await Event.find();
+
   let events = await Event.find();
+<<<<<<< HEAD
+
+  //Functionality for query search
+=======
+>>>>>>> 3be7748ad02b43323e0e1765cb75e859aea37ec8
   for (const key in req.query) {
-    console.log(key, req.query[key]);
     if (req.query[key] != "") {
+      //Use index provided by mongodb to search in name and description
       if (key === "name") querySearch["$text"] = { $search: req.query[key] };
-      else querySearch[key] = req.query[key];
+      if (key === "date") {
+        //Format the Date from HTML5 form to Date Schema
+        //YYYY-MM-DDTHH:MM:SS.000Z
+        let formatDate = req.query[key].toString() + ":00.000Z";
+        const formattedDate = new Date(formatDate);
+        //Checks for any date later.
+        querySearch[key] = { $gte: formattedDate };
+      } else querySearch[key] = { $search: req.query[key] };
     }
     //if key is not empty
     //append key: req.query[key] to the object
   }
+
+  //Will use querySearch if there is a query
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
   
