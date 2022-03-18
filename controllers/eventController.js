@@ -5,6 +5,7 @@ const router = express.Router();
 const axios = require("axios");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const e = require("express");
+const User = require("../models/user");
 const auth = {
   header: {
     "x-rapidapi-key": process.env.API_KEY,
@@ -25,14 +26,22 @@ router.get("/", async (req, res) => {
     if (req.query[key] != "") {
       //Use index provided by mongodb to search in name and description
       if (key === "name") querySearch["$text"] = { $search: req.query[key] };
+<<<<<<< HEAD
       if (key === "date") {
+=======
+      else if (key === "date") {
+>>>>>>> 3be7748ad02b43323e0e1765cb75e859aea37ec8
         //Format the Date from HTML5 form to Date Schema
         //YYYY-MM-DDTHH:MM:SS.000Z
         let formatDate = req.query[key].toString() + ":00.000Z";
         const formattedDate = new Date(formatDate);
         //Checks for any date later.
         querySearch[key] = { $gte: formattedDate };
+<<<<<<< HEAD
       } else querySearch[key] = { $search: req.query[key] };
+=======
+      }  else querySearch[key] = req.query[key];
+>>>>>>> 3be7748ad02b43323e0e1765cb75e859aea37ec8
     }
     //if key is not empty
     //append key: req.query[key] to the object
@@ -57,8 +66,6 @@ router.get("/", async (req, res) => {
   }
   const exactString = `${d.getFullYear()}-${endDate}-${date1}T18:00:00Z`;
   //endDateTime=${exactString}$
-  console.log("i am read");
-  console.log(`bazinga ${exactString}`);
   const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_KEY}`;
   axios({
     method: "get",
@@ -75,6 +82,11 @@ router.get("/", async (req, res) => {
 });
 // Demo that res.locals is the same as the object passed to render
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 3be7748ad02b43323e0e1765cb75e859aea37ec8
 // NEW: GET
 // /events/new
 // Shows a form to create a new event
@@ -90,6 +102,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
   const currId = req.session.userId;
+  const user = await User.findById(req.session.userId)
   if (req.params.id.length > 15) {
     const event = await Event.findById(req.params.id).populate("user");
     res.render("event/show.ejs", {
@@ -104,9 +117,11 @@ router.get("/:id", async (req, res) => {
       async: true,
       dataType: "json",
     }).then((apires) => {
+      
       res.render("event/show.ejs", {
         results: apires.data,
         currId: currId,
+        user: user
       });
     });
   }
@@ -171,6 +186,7 @@ router.put("/:id/like", async (req, res) => {
       //check if post has been liked by user
       if (!event.likes.includes(req.session.userId)) {
         await event.updateOne({ $push: { likes: req.session.userId } });
+<<<<<<< HEAD
       } else {
         await event.updateOne({ $pull: { likes: req.session.userId } });
       }
@@ -184,9 +200,25 @@ router.put("/:id/like", async (req, res) => {
       const user = req.session.userId;
       if (!user.likes.includes(eventToCall)) {
         await user.updateOne({ $push: { likes: eventToCall } });
+=======
+>>>>>>> 3be7748ad02b43323e0e1765cb75e859aea37ec8
       } else {
-        await user.updateOne({ $pull: { likes: eventToCall } });
+        await event.updateOne({ $pull: { likes: req.session.userId } });
       }
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
+      const eventId = req.params.id
+      //check if post has been liked by user
+      const user = await User.findById(req.session.userId)
+      if (!user.likes.includes(eventId)) {
+        await user.updateOne({ $push: { likes: eventId } });
+      } else {
+        await user.updateOne({ $pull: { likes: eventId } });
+      }
+      console.log("I pushed api url into user likes")
     } catch (err) {
       console.log(err);
     }

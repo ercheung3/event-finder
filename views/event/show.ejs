@@ -8,80 +8,81 @@
 
             <section class="event-show-section">
                 <div class="event-show-container">
-                    <%if(typeof event !=="undefined"){%>
-                    <h1 class="page-heading">
-                        <%= event.name %>
-                    </h1>
-                    <div class="event-img-box">
-                        <% if(event.image){ %>
-                            <!-- if img data exists, show -->
-                            <a href="/events/<%=event._id%>">
-                                <div class="event-img-bkg" style="background-image: url(<%=event.image%>)"
-                                    aria-label="Picture of <%=event.name%>"></div>
-                            </a>
-                            <% }else { %>
-                                <!-- if no img, show placeholder -->
+                    <%if(typeof event !=="undefined" ){%>
+                        <h1 class="page-heading">
+                            <%= event.name %>
+                        </h1>
+                        <div class="event-img-box">
+                            <% if(event.image){ %>
+                                <!-- if img data exists, show -->
                                 <a href="/events/<%=event._id%>">
-                                    <img class="event-img-placeholder" src="../../img/event-img.png"
-                                        alt="Calendar icon">
+                                    <div class="event-img-bkg" style="background-image: url(<%=event.image%>)"
+                                        aria-label="Picture of <%=event.name%>"></div>
                                 </a>
-                                <% } %>
-                    </div>
-                    <% if(event.date){ %>
-                        <div class="show-text">
-                            <h3>When: </h3>
-                            <p class="event-date">
-                                <%=event.date%>
-                            </p>
+                                <% }else { %>
+                                    <!-- if no img, show placeholder -->
+                                    <a href="/events/<%=event._id%>">
+                                        <img class="event-img-placeholder" src="../../img/event-img.png"
+                                            alt="Calendar icon">
+                                    </a>
+                                    <% } %>
                         </div>
-                        <% } %>
-                            <% if(event.location){ %>
-                                <div class="show-text">
-                                    <h3>Where: </h3>
-                                    <p>
-                                        <%=event.location%>
-                                    </p>
-                                </div>
-                                <% } %>
-                                    <% if(event.organization){ %>
-                                        <div class="show-text">
-                                            <h3>Organized By: </h3>
-                                            <p>
-                                                <%=event.organization%>
-                                            </p>
-                                        </div>
-                                        <% } %>
-                                            <% if(event.description){ %>
-                                                <div class="show-text">
-                                                    <h3>Description: </h3>
-                                                    <p>
-                                                        <%=event.description%>
-                                                    </p>
-                                                </div>
-                                                <% } %>
-                                                    <% if(event.tag){ %>
-                                                        <div class="show-text">
-                                                            <p>Tags:</p>
-                                                            <p class="show-tag">
-                                                                <%=event.tag%>
-                                                            </p>
-                                                        </div>
-                                                        <% } %>
+                        <% if(event.date){ %>
+                            <div class="show-text">
+                                <h3>When: </h3>
+                                <p class="event-date">
+                                    <%=event.date%>
+                                </p>
+                            </div>
+                            <% } %>
+                                <% if(event.location){ %>
+                                    <div class="show-text">
+                                        <h3>Where: </h3>
+                                        <p>
+                                            <%=event.location%>
+                                        </p>
+                                    </div>
+                                    <% } %>
+                                        <% if(event.organization){ %>
+                                            <div class="show-text">
+                                                <h3>Organized By: </h3>
+                                                <p>
+                                                    <%=event.organization%>
+                                                </p>
+                                            </div>
+                                            <% } %>
+                                                <% if(event.description){ %>
+                                                    <div class="show-text">
+                                                        <h3>Description: </h3>
+                                                        <p>
+                                                            <%=event.description%>
+                                                        </p>
+                                                    </div>
+                                                    <% } %>
+                                                        <% if(event.tag){ %>
                                                             <div class="show-text">
-                                                                <p class="show-created-by">
-                                                                    Created by: <%= event.user.displayname %></a>
+                                                                <p>Tags:</p>
+                                                                <p class="show-tag">
+                                                                    <%=event.tag%>
                                                                 </p>
                                                             </div>
+                                                            <% } %>
+                                                                <div class="show-text">
+                                                                    <p class="show-created-by">
+                                                                        Created by: <%= event.user.displayname %></a>
+                                                                    </p>
+                                                                </div>
                 </div>
-
                 <div class="btn-container">
                     <% if(event.likes.includes(currId)) { %>
                         <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
-                            <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event Saved!</button>
+                            <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event
+                                Saved!</button>
                         </form>
                         <% } else { %>
                             <form action="/events/<%= event._id %>/like?_method=PUT" method="POST">
-                                <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i> Save This Event!</button>
+                                <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i> Save This
+                                    Event!</button>
                             </form>
                             <% } %>
                 </div>
@@ -94,42 +95,41 @@
                             <button type="submit">Delete your event?</button>
                         </form>
                         <%}%>
-                        
-                        
-                    </div>
-                </section>
-                <%} else {%>
 
+                </div>
+            </section>
+            <%} else {%>
+                <section class="event-show-section">
                     <h1 class="page-heading">
                         <%= results.name %>
                     </h1>
                     <div class="event-img-box">
-                        
-                            <!-- if img data exists, show -->
-                            <a href="/events/<%=results.id%>">
-                                <div class="event-img-bkg" style="background-image: url(<%=results.images[1].url%>)"
-                                    aria-label="Picture of <%=results.name%>"></div>
-                            </a>
-                            
+
+                        <!-- if img data exists, show -->
+                        <a href="/events/<%=results.id%>">
+                            <div class="event-img-bkg" style="background-image: url(<%=results.images[1].url%>)"
+                                aria-label="Picture of <%=results.name%>"></div>
+                        </a>
+
                     </div>
                     <% if(results.dates.start.localDate){ %>
                         <div class="show-text">
                             <h3>When: </h3>
                             <p class="event-date">
-                            <%=results.dates.start.localDate%>
+                                <%=results.dates.start.localDate%>
                             </p>
                         </div>
                         <% } %>
-                                <div class="show-text">
-                                    <h3>Where: </h3>
-                                    <p>
-                                        <%=results._embedded.venues[0].name%>
-                                    </p>
-                                </div>
-                                <div class="show-text">
-                                    <h3>Get Tickets: </h3>
-                                    <a href="<%=results.url%>">
-                                        <%=`Get Tickets!`%>
+                            <div class="show-text">
+                                <h3>Where: </h3>
+                                <p>
+                                    <%=results._embedded.venues[0].name%>
+                                </p>
+                            </div>
+                            <div class="show-text">
+                                <h3>Get Tickets: </h3>
+                                <a href="<%=results.url%>">
+                                    <%=`Get Tickets!`%>
                                         <br>
                                         <%=`${results.name} on TicketMaster!`%>
                                     <a>
@@ -146,8 +146,8 @@
                                             <% } %>
                      <% } %>                   
                 </div>
+            </section>
 
     </body>
     <%- include ('../partials/footer') %>
-
 </html>
