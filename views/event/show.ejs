@@ -112,11 +112,15 @@
                         </a>
 
                     </div>
-                    <% if(results.dates.start.date){ %>
+                    <% if(results.dates.start.localDate || results.dates.start.dateTime){ %>
                         <div class="show-text">
                             <h3>When: </h3>
                             <p class="event-dateTime">
-                                <%=results.date.start.dateTime%>
+                                <% if(results.dates.start.dateTime) { %>
+                                    <%=results.dates.start.dateTime%>
+                                        <% } else { %>
+                                            <%=results.dates.start.localDate%>
+                                                <% } %>
                             </p>
                         </div>
                         <% } %>
@@ -132,22 +136,25 @@
                                     <%=`Get Tickets!`%>
                                         <br>
                                         <%=`${results.name} on TicketMaster!`%>
-                                    <a>
-                                </div>
-                                <div class="btn-container">
-                                    <% if(user.likes.includes(results.id)) { %>
+                                            <a>
+                            </div>
+                            <div class="btn-container">
+                                <% if(user.likes.includes(results.id)) { %>
+                                    <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
+                                        <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event
+                                            Saved!</button>
+                                    </form>
+                                    <% } else { %>
                                         <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
-                                            <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event Saved!</button>
+                                            <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i>
+                                                Save This Event!</button>
                                         </form>
-                                        <% } else { %>
-                                            <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
-                                                <button class="like-btn" type="submit"><i class="fa-regular fa-heart"></i> Save This Event!</button>
-                                            </form>
+                                        <% } %>
                                             <% } %>
-                     <% } %>                   
-                </div>
-            </section>
+                            </div>
+                </section>
 
     </body>
     <%- include ('../partials/footer') %>
+
 </html>
