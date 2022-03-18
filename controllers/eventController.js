@@ -197,7 +197,7 @@ router.put("/:id/like", async (req, res) => {
             name: `${apires.data.name}`,
             url: `${apires.data.url}`,
             venue: `${apires.data._embedded.venues[0].name}`,
-            date: `${apires.data.dates.start.localDate}`,
+            date: `${apires.data.dates.start.dateTime}`,
             img: `${apires.data.images[0].url}`,
           }
           console.log(newLike)

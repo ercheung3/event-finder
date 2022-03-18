@@ -42,8 +42,9 @@
         <% let usedName=[] %>
             <% apiLikes.forEach((like)=>{ %>
                 <% if(!usedName.includes(like.name)) {%>
+                    <% console.log(`new item ${like.name}`) %>
                 <div class="upcoming-event-box">
-                    <img src="like.img"  class="event-img">
+                    <img src="<%=like.img%>"  class="event-img">
                     <ul class="event-info-box">
                         <li>
                             <% if(typeof like.id !== "undefined") {%>

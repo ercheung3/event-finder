@@ -75,10 +75,6 @@ router.get("/", async (req, res) => {
     events = await Event.find(querySearch);
 
   const user = await User.findOne({ _id: req.session.userId });
-  console.log(`likes =${user.likes}`);
-  
-  
-  console.log(apiContainer);
   res.render("user/index.ejs", {
     user: user,
     event: events,
@@ -119,7 +115,7 @@ router.post("/", async (req, res) => {
     bcrypt.genSaltSync(10)
   );
   console.log(hashedPassword);
-  if (req.body.displayname == "") req.body.displayname = req.body.username;
+  req.body.displayname = req.body.username;
   req.body.password = hashedPassword;
   const newUser = await User.create(req.body);
   console.log(newUser);

@@ -26,6 +26,7 @@ app.use(
     store: store,
   })
 );
+
 app.use(async (req, res, next) => {
   // This will send info from session to templates
   res.locals.isLoggedIn = req.session.isLoggedIn;
