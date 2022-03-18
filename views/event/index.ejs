@@ -7,7 +7,7 @@
         <%- include('../partials/header') %>
             <div class="index-page-content">
                 <h1 class="page-heading">Welcome to Event Palooza!</h1>
-                <% if(event.length===0) {%>
+                <% if(event.length===0 && results.length===0) {%>
                     <h2 class="page-sub-heading">There are no events yet!</h2>
                     <a href="/events/new">Create one now!</a>
                     <% } else { %>
@@ -94,9 +94,9 @@
                                         <% } %>
                                             <% }) %>
                                                 <% let usedName=[] %>
-                                                    <% results.forEach(result=> {%>
+                                                    <% results.forEach( (result)=> {%>
                                                         <% if(!usedName.includes(result.name)) {%>
-                                                            <div class="upcoming-event-box">
+                                                            <div class=" upcoming-event-box">
                                                                 <div class="event-img-box">
                                                                     <a href="/events/<%=result.id%>">
                                                                         <div class="event-img-bkg"
@@ -114,9 +114,7 @@
                                                                             </a>
                                                                         </h4>
                                                                     </li>
-                                                                    <li>
-                                                                        <%=result.classifications[0].segment.name%>
-                                                                    </li>
+
                                                                     <li>
                                                                         <% let eventDate=new
                                                                             Date(result.dates.start.localDate) %>
@@ -134,6 +132,11 @@
                                                                                                     %>
                                                                                                     <%=`${formattedDate}`%>
                                                                     </li>
+
+                                                                    <li>
+                                                                        <%=result.classifications[0].segment.name%>
+                                                                    </li>
+
                                                                 </ul>
                                                             </div>
 

@@ -73,11 +73,11 @@ router.get("/", async (req, res) => {
     async: true,
     dataType: "json",
   }).then((apires) => {
-    let wantedData = ""
-    if(apires.data.page.totalElements !== 0){
-      console.log('i exist')
-      wantedData = apires.data._embedded.events
-    } 
+    let wantedData = "";
+    if (apires.data.page.totalElements !== 0) {
+      console.log("i exist");
+      wantedData = apires.data._embedded.events;
+    }
     res.render("event/index.ejs", {
       results: wantedData,
       event: events,
@@ -192,6 +192,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 // /events/:id/like
 // like post with specific id
 router.put("/:id/like", isLoggedIn, async (req, res) => {
+  const user = await User.findById(req.session.userId);
   if (req.params.id.length > 15) {
     try {
       //get specified event
@@ -206,11 +207,16 @@ router.put("/:id/like", isLoggedIn, async (req, res) => {
       console.log(err);
     }
   } else {
+    if((typeof user.likes !== "undefined") &&(user.likes.filter(x => x.id === `${req.params.id}`).length > 0)) {
+      const itemLiked = user.likes.findIndex(x => x.id === req.params.id)
+      await user.updateOne({ $pull: { likes: user.likes[itemLiked] } });
+      console.log(`after removal ${user.likes}`)
+    } else {
     try {
       const eventId = req.params.id;
       const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`;
       //check if post has been liked by user
-      const user = await User.findById(req.session.userId);
+      
       let newLike = {};
       await axios({
         method: "get",
@@ -236,6 +242,7 @@ router.put("/:id/like", isLoggedIn, async (req, res) => {
       console.log(err);
     }
   }
+}
   res.redirect(`/events/${req.params.id}`);
   //Add alert for adding like
 });
