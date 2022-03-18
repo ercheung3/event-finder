@@ -6,87 +6,26 @@
     <body>
         <%- include('../partials/header') %>
 
-
-    <% if(isLoggedIn){ %>
-        <main>
-            <div class="welcome">
-                <h1>Welcome back <%= displayname %>!</h1>
-                <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
-                <h3>Here are all the events you are interested in:</h3>
-                <form action="/users" class="search-event-form">
-                    <input type="text" name="name">
-                    <button type="submit" class="search-event-btn">Search for your events</button>
-                </form>
-            </div>
-        </main>
-        <% event.forEach((event)=>{ %>
-            <% if(event.likes.includes(currId)) { %>
-                <div class="upcoming-event-box">
-                    <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
-                    <ul class="event-info-box">
-                        <li>
-                            <a href="/events/<%=event._id%>">
-                                <%=event.name%>
-                            </a>
-                        </li>
-                        <li>
-                            <%=event.date%>
-                        </li>
-                        <li>
-                            <%=event.description%>
-                        </li>
-                    </ul>
-                </div>
-                <% } %>
-                    <% }) %>
-        <% let usedName=[] %>
-            <% apiLikes.forEach((like)=>{ %>
-                <% if(!usedName.includes(like.name)) {%>
-                    <% console.log(`new item ${like.name}`) %>
-                <div class="upcoming-event-box">
-                    <img src="<%=like.img%>"  class="event-img">
-                    <ul class="event-info-box">
-                        <li>
-                            <% if(typeof like.id !== "undefined") {%>
-                            <a href="/events/<%=like.id%>">
-                               <% if(typeof like.name !== "undefined") {%>
-                                <%=like.name%>
-                                <% } %>
-                            </a>
-                            <% } else {%>
-                                <a>
-                                    <% if(typeof like.name !== "undefined") {%>
-                                     <%=like.name%>
-                                     <% } %>
-                                 </a>
-                                 <% } %>
-                        </li>
-                        <li>
-                            <% if(typeof like.date !== "undefined") {%>
-                            <%=like.date%>
-                            <% } %>
-                        </li>
-                        <li>
-                            <% if(typeof like.venue !== "undefined") { %>
-                            <%=like.venue%>
-                            <% } %>
-                        </li>
-                    </ul>
-                </div>
-                <% if(typeof like.name !== "undefined") {usedName.push(like.name)} %>
-            <% } %>
-            <% }) %>
-                        
-                            
-                              
-                        </form>
+            <% if(isLoggedIn){ %>
+                <main>
+                    <div class="welcome">
+                        <h1 class="page-heading">Welcome back <%= displayname %>!</h1>
+                        <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
+                        <div class="search-box">
+                            <p>Search your saved events:</p>
+                            <form action="/users" class="search-event-form">
+                                <input type="text" name="name" placeholder="Event Name">
+                                <button type="submit" class="search-event-btn">Search Saved Events</button>
+                            </form>
+                        </div>
+                </main>
 
                 <!-- conditional for showing saved events: -->
                 <% if(event.some((event)=> event.likes.includes(currId))) { %>
                     <section class="upcoming-events-section">
                         <!-- this heading cant go below the forEach otherwise it repeats -->
-                        <h2 class="page-sub-heading saved">Here are all the events you are interested in:</h2>
-                        <div class="upcoming-events-grid-container">
+                        <h3 class="page-sub-heading saved">Here are all the events you are interested in:</h3>
+                        <div class="upcoming-events-grid-container saved">
                             <% event.forEach((event)=>{ %>
                                 <% if(event.likes.includes(currId)) { %>
                                     <div class="upcoming-event-box">
@@ -96,7 +35,8 @@
                                                 <a href="/events/<%=event._id%>">
                                                     <div class="event-img-bkg"
                                                         style="background-image: url(<%=event.image%>)"
-                                                        aria-label="Picture of <%=event.name%>"></div>
+                                                        aria-label="Picture of <%=event.name%>">
+                                                    </div>
                                                 </a>
                                                 <% }else { %>
                                                     <!-- if no img, show placeholder -->
@@ -124,20 +64,67 @@
                                     </div>
                                     <% } %>
                                         <% }) %>
+                                            <!-- saved API events -->
+                                            <% let usedName=[] %>
+                                                <% apiLikes.forEach((like)=>{ %>
+                                                    <% if(!usedName.includes(like.name)) {%>
+                                                        <% console.log(`new item ${like.name}`) %>
+                                                            <div class="upcoming-event-box">
+                                                                <div class="event-img-box">
+                                                                    <a href="/events/<%=like.id%>">
+                                                                        <div class="event-img-bkg" style="background-image: url(<%=like.img%>)" aria-label="event image">
+                                                                        </div>
+                                                                        </a>
+                                                                </div>
+                                                                <ul class="event-info-box">
+                                                                    <li>
+                                                                        <% if(typeof like.id !=="undefined" ) {%>
+                                                                            <a href="/events/<%=like.id%>">
+                                                                                <% if(typeof like.name !=="undefined" )
+                                                                                    {%>
+                                                                                    <%=like.name%>
+                                                                                        <% } %>
+                                                                            </a>
+                                                                            <% } else {%>
+                                                                                <a>
+                                                                                    <% if(typeof like.name
+                                                                                        !=="undefined" ) {%>
+                                                                                        <%=like.name%>
+                                                                                            <% } %>
+                                                                                </a>
+                                                                                <% } %>
+                                                                    </li>
+                                                                    <li>
+                                                                        <% if(typeof like.date !=="undefined" ) {%>
+                                                                            <%=like.date%>
+                                                                                <% } %>
+                                                                    </li>
+                                                                    <li>
+                                                                        <% if(typeof like.venue !=="undefined" ) { %>
+                                                                            <%=like.venue%>
+                                                                                <% } %>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <% if(typeof like.name !=="undefined" )
+                                                                {usedName.push(like.name)} %>
+                                                                <% } %>
+                                                                    <% }) %>
                         </div>
                     </section>
                     <% }else { %>
-                        <!-- need to add conditional for # of saved events -->
                         <!-- conditional for if no saved events show: -->
                         <div class="no-saved-events-box">
-                            <h2 class="page-sub-heading">Looks like you don't have any events saved yet!</h2>
-                            <p><a class="new-link" href="/events">Find an event here</a> and add it to your saved!</p>
+                            <h2 class="page-sub-heading">Looks like you
+                                don't have any events saved yet!</h2>
+                            <p><a class="new-link" href="/events">Find an
+                                    event here</a> and add it to your saved!
+                            </p>
                         </div>
                         <% } %>
-                            
-                                <% } else { %>
-                                    <a class="new-link" href="/users/login">Please log in</a>
-                                    <% } %>
+                            <% } else { %>
+                                <a class="new-link" href="/users/login">Please log in</a>
+                                <% } %>
     </body>
     <%- include ('../partials/footer') %>
 
