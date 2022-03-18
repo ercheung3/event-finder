@@ -89,7 +89,7 @@ router.get("/", async (req, res) => {
 
 // About Page
 router.get("/about", (req, res) => {
-  const currId = req.session.userId;
+  const currId = req.session.isLoggedIn;
   res.render("event/about.ejs", {
     currId: currId,
   });
@@ -108,7 +108,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 // SHOW: GET
 // /events/:id
 // Shows a page displaying one event
-router.get("/:id", async (req, res) => {
+router.get("/:id", isLoggedIn, async (req, res) => {
   const currId = req.session.userId;
   const user = await User.findById(req.session.userId);
   if (req.params.id.length > 15) {
@@ -191,7 +191,7 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 //like: put
 // /events/:id/like
 // like post with specific id
-router.put("/:id/like", async (req, res) => {
+router.put("/:id/like", isLoggedIn, async (req, res) => {
   if (req.params.id.length > 15) {
     try {
       //get specified event
