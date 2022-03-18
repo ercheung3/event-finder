@@ -44,8 +44,8 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
-async function loopandrender(newArr, arr){
-  for(let like of arr){
+async function loopandrender(newArr, arr) {
+  for (let like of arr) {
     await axios({
       method: "get",
       url: like,
@@ -58,9 +58,9 @@ async function loopandrender(newArr, arr){
         date: apires.data.dates.start.localDate,
         url: apires.data.url,
         img: apires.data.images[0].url,
-        id: apires.data.id
-      }
-      newArr.push(dataObject)
+        id: apires.data.id,
+      };
+      newArr.push(dataObject);
     });
   }
 }
@@ -68,23 +68,20 @@ router.get("/", async (req, res) => {
   const querySearch = {};
 
   let events = await Event.find();
-<<<<<<< HEAD
 
   //Functionality for query search
-=======
->>>>>>> 3be7748ad02b43323e0e1765cb75e859aea37ec8
   for (const key in req.query) {
     if (req.query[key] != "") {
       //Use index provided by mongodb to search in name and description
       if (key === "name") querySearch["$text"] = { $search: req.query[key] };
-      if (key === "date") {
+      else if (key === "date") {
         //Format the Date from HTML5 form to Date Schema
         //YYYY-MM-DDTHH:MM:SS.000Z
         let formatDate = req.query[key].toString() + ":00.000Z";
         const formattedDate = new Date(formatDate);
         //Checks for any date later.
         querySearch[key] = { $gte: formattedDate };
-      } else querySearch[key] = { $search: req.query[key] };
+      } else querySearch[key] = req.query[key];
     }
     //if key is not empty
     //append key: req.query[key] to the object
@@ -93,12 +90,12 @@ router.get("/", async (req, res) => {
   //Will use querySearch if there is a query
   if (Object.keys(querySearch).length > 0)
     events = await Event.find(querySearch);
-  
+
   const user = await User.findOne({ _id: req.session.userId });
-  console.log(`likes =${user.likes}`)
-  let apiContainer = []
-  loopandrender(apiContainer, user.likes)
-  console.log(apiContainer)
+  console.log(`likes =${user.likes}`);
+  let apiContainer = [];
+  loopandrender(apiContainer, user.likes);
+  console.log(apiContainer);
   res.render("user/index.ejs", {
     user: user,
     event: events,
