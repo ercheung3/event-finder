@@ -66,15 +66,20 @@ router.get("/", async (req, res) => {
   //endDateTime=${exactString}$
   //API CALL
   //&keyword=rocket&locale=*&startDateTime=2022-03-19T14:59:00Z
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_KEY}${apiSearch}`;
-  axios({
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100${apiSearch}&apikey=${process.env.API_KEY}`;
+  await axios({
     method: "get",
     url: apiUrl,
     async: true,
     dataType: "json",
   }).then((apires) => {
+    let wantedData = ""
+    if(apires.data.page.totalElements !== 0){
+      console.log('i exist')
+      wantedData = apires.data._embedded.events
+    } 
     res.render("event/index.ejs", {
-      results: apires.data._embedded.events,
+      results: wantedData,
       event: events,
       currId: currId,
     });
