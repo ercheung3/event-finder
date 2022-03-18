@@ -139,7 +139,7 @@
                                             <a>
                             </div>
                             <div class="btn-container">
-                                <% if(user.likes.includes(results.id)) { %>
+                                <% if(user.likes.filter(x => x.id === `${results.id}`).length > 0) { %>
                                     <form action="/events/<%= results.id %>/like?_method=PUT" method="POST">
                                         <button class="like-btn" type="submit"><i class="fa-solid fa-heart"></i> Event
                                             Saved!</button>
