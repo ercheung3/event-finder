@@ -6,20 +6,62 @@
     <body>
         <%- include('../partials/header') %>
 
-            <% if(isLoggedIn){ %>
-                <main>
-                    <div class="welcome">
-                        <h1 class="page-heading">Welcome back <%= displayname %>!</h1>
-                        <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
-                        <div class="search-box">
-                            <p>Search your saved events:</p>
-                            <form action="/users" class="search-event-form">
-                                <input type="text" name="name" placeholder="Event Name">
-                                <button type="submit" class="search-event-btn">Search Saved Events</button>
-                            </form>
-                        </div>
-                    </div>
-                </main>
+
+    <% if(isLoggedIn){ %>
+        <main>
+            <div class="welcome">
+                <h1>Welcome back <%= displayname %>!</h1>
+                <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
+                <h3>Here are all the events you are interested in:</h3>
+                <form action="/users" class="search-event-form">
+                    <input type="text" name="name">
+                    <button type="submit" class="search-event-btn">Search for your events</button>
+                </form>
+            </div>
+        </main>
+        <% event.forEach((event)=>{ %>
+            <% if(event.likes.includes(currId)) { %>
+                <div class="upcoming-event-box">
+                    <img src="/public/img/#" alt="Photo of <%=event.name%>" class="event-img">
+                    <ul class="event-info-box">
+                        <li>
+                            <a href="/events/<%=event._id%>">
+                                <%=event.name%>
+                            </a>
+                        </li>
+                        <li>
+                            <%=event.date%>
+                        </li>
+                        <li>
+                            <%=event.description%>
+                        </li>
+                    </ul>
+                </div>
+                <% } %>
+                    <% }) %>
+            <% apiLikes.forEach((like)=>{ %>
+                <div class="upcoming-event-box">
+                    <img src="like.img"  class="event-img">
+                    <ul class="event-info-box">
+                        <li>
+                            <a href="/events/<%=event.id%>">
+                                <%=like.name%>
+                            </a>
+                        </li>
+                        <li>
+                            <%=like.date%>
+                        </li>
+                        <li>
+                            <%=like.venue%>
+                        </li>
+                    </ul>
+                </div>
+            
+            <% }) %>
+                        
+                            
+                              
+                        </form>
 
                 <!-- conditional for showing saved events: -->
                 <% if(event.some((event)=> event.likes.includes(currId))) { %>
