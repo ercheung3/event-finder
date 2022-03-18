@@ -18,22 +18,28 @@ router.get("/", async (req, res) => {
   const currId = req.session.userId;
 
   const querySearch = {};
-
+  let apiSearch = "";
   let events = await Event.find();
 
   //Functionality for query search
   for (const key in req.query) {
     if (req.query[key] != "") {
       //Use index provided by mongodb to search in name and description
-      if (key === "name") querySearch["$text"] = { $search: req.query[key] };
-      else if (key === "date") {
+      if (key === "name") {
+        querySearch["$text"] = { $search: req.query[key] };
+        apiSearch += `&keyword=${req.query[key]}`;
+      } else if (key === "date") {
         //Format the Date from HTML5 form to Date Schema
         //YYYY-MM-DDTHH:MM:SS.000Z
-        let formatDate = req.query[key].toString() + ":00.000Z";
+        let formatDate = req.query[key].toString() + ":00Z";
         const formattedDate = new Date(formatDate);
         //Checks for any date later.
         querySearch[key] = { $gte: formattedDate };
-      } else querySearch[key] = req.query[key];
+        apiSearch += `&startDateTime=${formatDate}`;
+      } else {
+        querySearch[key] = req.query[key];
+        //Would add to apiSearch if we had more fields
+      }
     }
     //if key is not empty
     //append key: req.query[key] to the object
@@ -58,7 +64,9 @@ router.get("/", async (req, res) => {
   }
   const exactString = `${d.getFullYear()}-${endDate}-${date1}T18:00:00Z`;
   //endDateTime=${exactString}$
-  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_KEY}`;
+  //API CALL
+  //&keyword=rocket&locale=*&startDateTime=2022-03-19T14:59:00Z
+  const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?dmaId=362&size=100&apikey=${process.env.API_KEY}${apiSearch}`;
   axios({
     method: "get",
     url: apiUrl,
