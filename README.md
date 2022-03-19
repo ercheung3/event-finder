@@ -42,13 +42,15 @@ This out of this world app will let you find fun and upcoming events near your a
 - Additional user functionality: save/unsave event button
 
 
-## FUTURE FEATURES
+## Future Features
+* Responsive Mobile Design
 * Multiple Locations (currently only in Portland)
 * Ability for user to upload an image from file for a new event or when editing an event
 * Additional event type: Age Restriction [0,21]
 * Added save events to Google Calendar
 * Ability for user to delete their account
 * Ability for user to change password
+* Fix user search functionality: works for saved events that were created by users, cannot currently display saved API events
 
 
 ## Models
