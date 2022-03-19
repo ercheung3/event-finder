@@ -80,7 +80,7 @@ Users
 
 ![User flowchart for even app](./public/img/Event%20Palooza%20User%20Flow.png)
 
-## Wireframing
+<!-- ## Wireframing -->
 
 
 ## RESTful Routes
@@ -98,3 +98,8 @@ Users
 * At least one GitHub commit per day
 * Be deployed online and accessible to the public via Heroku
 * A README.md file
+
+
+## Team Contributions
+- Front-End Web Development: Angela, Pierre
+- Back-End Web Development: Brevan, Eric
