@@ -6,27 +6,38 @@ const axios = require("axios");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const e = require("express");
 const User = require("../models/user");
+const req = require("express/lib/request");
+const res = require("express/lib/response");
 const auth = {
   header: {
     "x-rapidapi-key": process.env.API_KEY,
   },
 };
-let currId;
-let user;
-async function checkId() {
-  if (res.locals.userId) {
-    currId = req.session.userId;
-    user = await User.findById(req.session.userId);
-  } else {
-    currId = null;
-    user = null;
-  }
-}
-checkId;
+
+let currId
+let user
+// async function checkId(){
+// if (res.locals.userId){
+//   currId = req.session.userId
+//   user = await User.findById(req.session.userId)
+// } else {
+//   currId = null
+//   user = null
+// }
+// }
+// checkId();
+
 // INDEX: GET
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
+  if (res.locals.userId){
+    currId = req.session.userId
+    user = await User.findById(req.session.userId)
+  } else {
+    currId = null
+    user = null
+  }
   const querySearch = {};
   let apiSearch = "";
   let events = await Event.find({ date: { $gte: new Date() } });
@@ -110,6 +121,7 @@ router.get("/", async (req, res) => {
 // /events/about
 // Renders about page for the group
 router.get("/about", (req, res) => {
+  const currId =req.session.isLoggedIn
   res.render("event/about.ejs", {
     currId: currId,
   });
@@ -128,6 +140,13 @@ router.get("/new", isLoggedIn, (req, res) => {
 // /events/:id
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
+  if (res.locals.userId){
+    currId = req.session.userId
+    user = await User.findById(req.session.userId)
+  } else {
+    currId = null
+    user = null
+  }
   if (req.params.id.length > 15) {
     const event = await Event.findById(req.params.id).populate("user");
     res.render("event/show.ejs", {
