@@ -11,25 +11,25 @@ const auth = {
     "x-rapidapi-key": process.env.API_KEY,
   },
 };
-let currId
-let user
-async function checkId(){
-if (res.locals.userId){
-  currId = req.session.userId
-  user = await User.findById(req.session.userId)
-} else {
-  currId = null
-  user = null
+let currId;
+let user;
+async function checkId() {
+  if (res.locals.userId) {
+    currId = req.session.userId;
+    user = await User.findById(req.session.userId);
+  } else {
+    currId = null;
+    user = null;
+  }
 }
-}
-checkId
+checkId;
 // INDEX: GET
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
   const querySearch = {};
   let apiSearch = "";
-  let events = await Event.find();
+  let events = await Event.find({ date: { $gte: new Date() } });
 
   //Functionality for query search
   for (const key in req.query) {
@@ -41,11 +41,20 @@ router.get("/", async (req, res) => {
       } else if (key === "date") {
         //Format the Date from HTML5 form to Date Schema
         //YYYY-MM-DDTHH:MM:SS.000Z
-        let formatDate = req.query[key].toString() + ":00Z";
-        const formattedDate = new Date(formatDate);
-        //Checks for any date later.
-        querySearch[key] = { $gte: formattedDate };
-        apiSearch += `&startDateTime=${formatDate}`;
+        //API Date Format
+        //YYY-MM-DDTHH:MM:SSZ
+        if (req.query[key] == "past") {
+          let today = new Date();
+          querySearch[key] = { $lte: today };
+          today = today.toISOString().slice(0, -5) + "Z";
+          apiSearch += `&endDateTime=${today}`;
+        } else {
+          let formatDate = req.query[key].toString() + ":00Z";
+          const formattedDate = new Date(formatDate);
+          //Checks for any date later.
+          querySearch[key] = { $gte: formattedDate };
+          apiSearch += `&startDateTime=${formatDate}`;
+        }
       } else {
         querySearch[key] = req.query[key];
         //Would add to apiSearch if we had more fields
@@ -83,9 +92,10 @@ router.get("/", async (req, res) => {
     async: true,
     dataType: "json",
   }).then((apires) => {
-    let wantedData = "";
+    let wantedData = [];
+    //Checks if there is events with totalElements
+    //data._embedded.events will give an error if checked with no events
     if (apires.data.page.totalElements !== 0) {
-      console.log("i exist");
       wantedData = apires.data._embedded.events;
     }
     res.render("event/index.ejs", {
@@ -95,9 +105,10 @@ router.get("/", async (req, res) => {
     });
   });
 });
-// Demo that res.locals is the same as the object passed to render
 
 // About Page
+// /events/about
+// Renders about page for the group
 router.get("/about", (req, res) => {
   res.render("event/about.ejs", {
     currId: currId,
@@ -212,42 +223,45 @@ router.put("/:id/like", async (req, res) => {
       console.log(err);
     }
   } else {
-    if((typeof user.likes !== "undefined") &&(user.likes.filter(x => x.id === `${req.params.id}`).length > 0)) {
-      const itemLiked = user.likes.findIndex(x => x.id === req.params.id)
+    if (
+      typeof user.likes !== "undefined" &&
+      user.likes.filter((x) => x.id === `${req.params.id}`).length > 0
+    ) {
+      const itemLiked = user.likes.findIndex((x) => x.id === req.params.id);
       await user.updateOne({ $pull: { likes: user.likes[itemLiked] } });
-      console.log(`after removal ${user.likes}`)
+      console.log(`after removal ${user.likes}`);
     } else {
-    try {
-      const eventId = req.params.id;
-      const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`;
-      //check if post has been liked by user
-      
-      let newLike = {};
-      await axios({
-        method: "get",
-        url: thisEvent,
-        async: true,
-        dataType: "json",
-      }).then((apires) => {
-        let eventDate = new Date(apires.data.dates.start.localDate);
-        if (apires.data.dates.start.dateTime)
-          eventDate = new Date(apires.data.dates.start.dateTime);
-        newLike = {
-          id: `${req.params.id}`,
-          name: `${apires.data.name}`,
-          url: `${apires.data.url}`,
-          venue: `${apires.data._embedded.venues[0].name}`,
-          date: eventDate,
-          img: `${apires.data.images[0].url}`,
-        };
-      });
+      try {
+        const eventId = req.params.id;
+        const thisEvent = `https://app.ticketmaster.com/discovery/v2/events/${req.params.id}.json?apikey=${process.env.API_KEY}`;
+        //check if post has been liked by user
 
-      await user.updateOne({ $push: { likes: newLike } });
-    } catch (err) {
-      console.log(err);
+        let newLike = {};
+        await axios({
+          method: "get",
+          url: thisEvent,
+          async: true,
+          dataType: "json",
+        }).then((apires) => {
+          let eventDate = new Date(apires.data.dates.start.localDate);
+          if (apires.data.dates.start.dateTime)
+            eventDate = new Date(apires.data.dates.start.dateTime);
+          newLike = {
+            id: `${req.params.id}`,
+            name: `${apires.data.name}`,
+            url: `${apires.data.url}`,
+            venue: `${apires.data._embedded.venues[0].name}`,
+            date: eventDate,
+            img: `${apires.data.images[0].url}`,
+          };
+        });
+
+        await user.updateOne({ $push: { likes: newLike } });
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
-}
   res.redirect(`/events/${req.params.id}`);
   //Add alert for adding like
 });
