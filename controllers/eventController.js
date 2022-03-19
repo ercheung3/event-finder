@@ -14,8 +14,8 @@ const auth = {
   },
 };
 
-let currId
-let user
+let currId;
+let user;
 // async function checkId(){
 // if (res.locals.userId){
 //   currId = req.session.userId
@@ -31,12 +31,12 @@ let user
 // /events
 // Gives a page displaying all the events
 router.get("/", async (req, res) => {
-  if (res.locals.userId){
-    currId = req.session.userId
-    user = await User.findById(req.session.userId)
+  if (res.locals.userId) {
+    currId = req.session.userId;
+    user = await User.findById(req.session.userId);
   } else {
-    currId = null
-    user = null
+    currId = null;
+    user = null;
   }
   const querySearch = {};
   let apiSearch = "";
@@ -121,7 +121,7 @@ router.get("/", async (req, res) => {
 // /events/about
 // Renders about page for the group
 router.get("/about", (req, res) => {
-  const currId =req.session.isLoggedIn
+  const currId = req.session.isLoggedIn;
   res.render("event/about.ejs", {
     currId: currId,
   });
@@ -140,12 +140,12 @@ router.get("/new", isLoggedIn, (req, res) => {
 // /events/:id
 // Shows a page displaying one event
 router.get("/:id", async (req, res) => {
-  if (res.locals.userId){
-    currId = req.session.userId
-    user = await User.findById(req.session.userId)
+  if (res.locals.userId) {
+    currId = req.session.userId;
+    user = await User.findById(req.session.userId);
   } else {
-    currId = null
-    user = null
+    currId = null;
+    user = null;
   }
   if (req.params.id.length > 15) {
     const event = await Event.findById(req.params.id).populate("user");
@@ -176,9 +176,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     req.body.user = req.session.userId;
-    console.log("DATE: " + req.body.date);
     const newevent = await Event.create(req.body);
-    console.log(newevent);
     res.redirect("/events");
   } catch (err) {
     res.redirect("/events/new");
@@ -248,7 +246,6 @@ router.put("/:id/like", async (req, res) => {
     ) {
       const itemLiked = user.likes.findIndex((x) => x.id === req.params.id);
       await user.updateOne({ $pull: { likes: user.likes[itemLiked] } });
-      console.log(`after removal ${user.likes}`);
     } else {
       try {
         const eventId = req.params.id;

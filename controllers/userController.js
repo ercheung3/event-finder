@@ -46,7 +46,6 @@ router.get("/logout", (req, res) => {
   });
 });
 
-
 router.get("/", async (req, res) => {
   const querySearch = {};
 
@@ -114,11 +113,9 @@ router.post("/", async (req, res) => {
     req.body.password,
     bcrypt.genSaltSync(10)
   );
-  console.log(hashedPassword);
   req.body.displayname = req.body.username;
   req.body.password = hashedPassword;
   const newUser = await User.create(req.body);
-  console.log(newUser);
   res.redirect("/users/login");
 });
 
