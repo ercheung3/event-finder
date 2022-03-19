@@ -66,8 +66,9 @@ router.get("/", async (req, res) => {
           querySearch[key] = { $gte: formattedDate };
           apiSearch += `&startDateTime=${formatDate}`;
         }
-      } else {
+      } else if (key === "tag") {
         querySearch[key] = req.query[key];
+        apiSearch += `&classificationName=${req.query[key]}`;
         //Would add to apiSearch if we had more fields
       }
     }

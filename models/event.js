@@ -41,7 +41,8 @@ const eventSchema = new Schema(
         "Community Event",
         "Outdoor Recreation",
         "Health/Fitness",
-        "Arts & Culture",
+        "Arts & Theatre",
+        "Sports",
       ],
     },
     location: {

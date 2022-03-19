@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include('../partials/head') %>
+<%- include('../partials/head') %>
 
-<body>
+    <body>
         <%- include('../partials/header') %>
 
-    <main>
-        <div class="edit-event-form">
-            <div class="edit-event-heading">
-                <h1>Edit Event</h1>
-            </div>
-            <form action="/events/<%=event._id%>?_method=PUT" method="POST">
-                <!--Match model form-->
-                <div class="edit-event-inputs">
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" value="<%=event.name%>" required>
-                    <label for="description">Description:</label>
-                    <input type="text" name="description" value="<%=event.description%>">
-                    <label for="image">Image URL:</label>
-                    <input type="text" name="image" value="<%=event.image%>">
-                    <label for="date">Date:</label>
-                    <input type="datetime-local" name="date" value="<%=event.date%>">
-                    <label for="organization">Organization:</label>
-                    <input type="text" name="organization" value="<%=event.organization%>">
-                    <label for="tag">Event Type:</label>
-                    <div class="edit-event-drop">
-                        <select name="tag">
-                            <option selected disabled hidden value="<%=event.tag%>">
-                                <%=event.tag%>
-                            </option>
-                            <!-- need to create a conditional to show all other tags that do not equal current tag? -->
-                            <option value="Music">Music</option>
-                            <option value="Arts & Culture">Arts & Culture</option>
-                            <option value="Community Event">Community Event</option>
-                            <option value="Outdoor Recreation">Outdoor Recreation</option>
-                            <option value="Health/Fitness">Health/Fitness</option>
-                        </select>
+            <main>
+                <div class="edit-event-form">
+                    <div class="edit-event-heading">
+                        <h1>Edit Event</h1>
                     </div>
-                    <label for="location">Location:</label>
-                    <input type="text" name="location" value="<%=event.location%>">
-                    <div class="edit-event-btn-container">
-                        <button class="edit-event-btn" type="submit">Submit</button>
-                    </div>
+                    <form action="/events/<%=event._id%>?_method=PUT" method="POST">
+                        <!--Match model form-->
+                        <div class="edit-event-inputs">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" value="<%=event.name%>" required>
+                            <label for="description">Description:</label>
+                            <input type="text" name="description" value="<%=event.description%>">
+                            <label for="image">Image URL:</label>
+                            <input type="text" name="image" value="<%=event.image%>">
+                            <label for="date">Date:</label>
+                            <input type="datetime-local" name="date" value="<%=event.date%>">
+                            <label for="organization">Organization:</label>
+                            <input type="text" name="organization" value="<%=event.organization%>">
+                            <label for="tag">Event Type:</label>
+                            <div class="edit-event-drop">
+                                <select name="tag">
+                                    <option selected disabled hidden value="<%=event.tag%>">
+                                        <%=event.tag%>
+                                    </option>
+                                    <!-- need to create a conditional to show all other tags that do not equal current tag? -->
+                                    <option value="Music">Music</option>
+                                    <option value="Arts & Theatre">Arts & Theatre</option>
+                                    <option value="Community Event">Community Event</option>
+                                    <option value="Outdoor Recreation">Outdoor Recreation</option>
+                                    <option value="Health/Fitness">Health/Fitness</option>
+                                    <option value="Sports">Sports</option>
+                                </select>
+                            </div>
+                            <label for="location">Location:</label>
+                            <input type="text" name="location" value="<%=event.location%>">
+                            <div class="edit-event-btn-container">
+                                <button class="edit-event-btn" type="submit">Submit</button>
+                            </div>
 
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-    </main>
+            </main>
 
 
 
-</body>
-<%- include ('../partials/footer') %>
+    </body>
+    <%- include ('../partials/footer') %>
 
 </html>
