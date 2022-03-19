@@ -10,7 +10,8 @@
                 <main>
                     <div class="welcome">
                         <h1 class="page-heading">Welcome back <%= displayname %>!</h1>
-                        <p class="page-sub-heading"><a class="new-link" href="/users/<%=displayname%>/edit">Edit My Account</a></p>
+                        <p class="page-sub-heading"><a class="new-link" href="/users/<%=displayname%>/edit">Edit My
+                                Account</a></p>
                         <p>Want to add a new event? <a class="new-link" href="/events/new">Create one here!</a></p>
                         <div class="search-box">
                             <p>Search your saved events:</p>
@@ -22,7 +23,7 @@
                 </main>
 
                 <!-- conditional for showing saved events: -->
-                <% if(event.some((event)=> event.likes.includes(currId))) { %>
+                <% if(event.some((event)=> event.likes.includes(currId)) || apiLikes.length > 0) { %>
                     <section class="upcoming-events-section">
                         <!-- this heading cant go below the forEach otherwise it repeats -->
                         <h3 class="page-sub-heading saved">Here are all the events you are interested in:</h3>
@@ -73,9 +74,11 @@
                                                             <div class="upcoming-event-box">
                                                                 <div class="event-img-box">
                                                                     <a href="/events/<%=like.id%>">
-                                                                        <div class="event-img-bkg" style="background-image: url(<%=like.img%>)" aria-label="event image">
+                                                                        <div class="event-img-bkg"
+                                                                            style="background-image: url(<%=like.img%>)"
+                                                                            aria-label="event image">
                                                                         </div>
-                                                                        </a>
+                                                                    </a>
                                                                 </div>
                                                                 <ul class="event-info-box">
                                                                     <li>
